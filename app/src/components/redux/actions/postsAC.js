@@ -1,5 +1,5 @@
 import { API_TOKEN } from "../../../constants";
-import { SET_ALL_POSTS } from "../types/postsTypes";
+import { ADD_NEW_POST, SET_ALL_POSTS } from "../types/postsTypes";
 
 export const setAllPosts = (allPosts) => ({
   type: SET_ALL_POSTS,
@@ -16,4 +16,24 @@ export const loadAllPosts = () => async (dispatch) => {
   const postsFromApi = await response.json();
 
   dispatch(setAllPosts(postsFromApi));
+};
+
+export const addNewPost = (allPosts) => ({
+  type: ADD_NEW_POST,
+  payload: allPosts,
+});
+
+export const queryNewPost = (post) => async (dispatch) => {
+  const response = await fetch("https://api.react-learning.ru/posts", {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${API_TOKEN}`,
+      "Content-Type": "application/json",
+    },
+    body: post,
+  });
+
+  const postFromApi = await response.json();
+
+  dispatch(addNewPost(postFromApi));
 };
