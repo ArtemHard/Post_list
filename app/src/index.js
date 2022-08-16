@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import rootReducer from "./components/redux/reducers/rootReducer";
+import rootReducer from "./redux/reducers/rootReducer";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "@redux-devtools/extension";
-import initState from "./components/redux/initState";
+import initState from "./redux/initState";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 

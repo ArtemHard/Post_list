@@ -1,6 +1,7 @@
 const initState = () => {
   return {
     posts: [],
+    search: "",
   };
 };
 
