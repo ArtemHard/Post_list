@@ -66,11 +66,15 @@ const pages = [
     path: '/'
   },
   {
+    title: 'Posts',
+    path: '/posts'
+  },
+  {
     title: "Create New Post",
     path: "/postform",
   },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Sign In", "Sign Up", "Logout"];
 
 
 

@@ -2,6 +2,11 @@ const initState = () => {
   return {
     posts: [],
     search: "",
+    person: {
+      name: "",
+      email: "",
+      token: "",
+    },
   };
 };
 

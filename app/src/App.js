@@ -4,6 +4,9 @@ import NavBar from "./components/NavBar/NavBar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./components/Main/Main";
 import PostForm from "./components/PostForm/PostForm";
+import PostsList from "./components/PostList/PostList";
+import { RequireAuth } from "./components/Auth/RequireAuth/RequireAuth";
+import SignIn from "./components/Auth/SignIn/SignIn";
 
 function App() {
   return (
@@ -12,7 +15,23 @@ function App() {
       <Container maxWidth='md' className='container'>
         <Routes>
           <Route path='/' element={<Main />} />
-          <Route path='/postform' element={<PostForm />} />
+          <Route
+            path='/posts'
+            element={
+              <RequireAuth>
+                <PostsList />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path='/postform'
+            element={
+              <RequireAuth>
+                <PostForm />
+              </RequireAuth>
+            }
+          />
+          <Route path='/signin' element={<SignIn />} />
         </Routes>
       </Container>
     </BrowserRouter>
