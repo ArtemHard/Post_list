@@ -19,7 +19,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch } from "react-redux";
 import { setSearchValue } from "../../redux/actions/searchAC";
-import { useState } from "react";
+import { SignOut } from "../../redux/actions/personAC";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -92,7 +92,10 @@ const NavBar = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (e) => {
+    if (e.target.innerText === "Logout") {
+      dispatch(SignOut());
+    }
     setAnchorElUser(null);
   };
   const dispatch = useDispatch();

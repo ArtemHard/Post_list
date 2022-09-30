@@ -1,9 +1,16 @@
 import { axiosInstance } from "../../config/axios";
-import { SIGN_IN } from "../types/personTypes";
+import { SIGN_IN, SIGN_OUT } from "../types/personTypes";
 
 export const SignIn = (person) => ({
   type: SIGN_IN,
   payload: person,
+});
+
+export const SignOut = () => ({
+  type: SIGN_OUT,
+  payload: {
+    token: "",
+  },
 });
 
 export const SignInQuery =
