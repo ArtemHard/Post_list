@@ -12,12 +12,12 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LinkMUI from "@mui/material/Link";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../../redux/actions/searchAC";
 import { SignOut } from "../../redux/actions/personAC";
 
@@ -75,11 +75,23 @@ const pages = [
     path: "/postform",
   },
 ];
-const settings = ["Sign In", "Sign Up", "Logout"];
+let settings = ["Профиль", "Войти", "Регистрация", "Выход"];
 
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const person = useSelector((store) => store.person);
+  person.token
+    ? (settings = ["Профиль", "Выход"])
+    : (settings = ["Войти", "Регистрация"]);
+
+  let hrefAvatar;
+  person.token && person.avatar
+    ? (hrefAvatar = person.avatar)
+    : (hrefAvatar = "/static/images/avatar/2.jpg");
+
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -93,8 +105,11 @@ const NavBar = () => {
   };
 
   const handleCloseUserMenu = (e) => {
-    if (e.target.innerText === "Logout") {
+    if (e.target.innerText === "Выход") {
       dispatch(SignOut());
+    }
+    if (e.target.innerText === "Профиль") {
+      navigate("/profile");
     }
     setAnchorElUser(null);
   };
@@ -210,7 +225,7 @@ const NavBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title='Open settings'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
+                <Avatar alt='Remy Sharp' src={hrefAvatar} />
               </IconButton>
             </Tooltip>
             <Menu

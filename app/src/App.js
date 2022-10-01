@@ -7,6 +7,7 @@ import PostForm from "./components/PostForm/PostForm";
 import PostsList from "./components/PostList/PostList";
 import { RequireAuth } from "./components/Auth/RequireAuth/RequireAuth";
 import SignIn from "./components/Auth/SignIn/SignIn";
+import Profile from "./components/Profile/Profile";
 
 function App() {
   return (
@@ -28,6 +29,15 @@ function App() {
             element={
               <RequireAuth>
                 <PostForm />
+              </RequireAuth>
+            }
+          />
+          <Route path='/signin' element={<SignIn />} />
+          <Route
+            path='/profile'
+            element={
+              <RequireAuth>
+                <Profile />
               </RequireAuth>
             }
           />
