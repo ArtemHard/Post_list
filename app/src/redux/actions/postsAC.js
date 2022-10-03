@@ -1,13 +1,14 @@
 // import { API_TOKEN } from "../../constants";
 import { ADD_NEW_POST, SET_ALL_POSTS } from "../types/postsTypes";
 import { axiosInstance } from "../../config/axios";
+import { addUserPosts } from "./personAC";
 
 export const setAllPosts = (allPosts) => ({
   type: SET_ALL_POSTS,
   payload: allPosts,
 });
 
-export const loadAllPosts = (searchValue) => async (dispatch) => {
+export const loadAllPosts = (searchValue, personId) => async (dispatch) => {
   // const urlForFetch = searchValue ? `/search/?query=${searchValue}` : "/";
   // const response = await fetch(
   //   `https://api.react-learning.ru/posts${urlForFetch}`,
@@ -23,6 +24,8 @@ export const loadAllPosts = (searchValue) => async (dispatch) => {
       query: searchValue,
     },
   });
+
+  console.log(response.status);
 
   // const postsFromApi = await response.json();
   const postsFromApi = response.data;

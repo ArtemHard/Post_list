@@ -8,6 +8,8 @@ import PostsList from "./components/PostList/PostList";
 import { RequireAuth } from "./components/Auth/RequireAuth/RequireAuth";
 import SignIn from "./components/Auth/SignIn/SignIn";
 import Profile from "./components/Profile/Profile";
+import PostsItem from "./components/PostsItem/PostsItem";
+import { ProfilePosts } from "./components/Profile/ProfileData/ProfileList/ProfilePosts/ProfilePosts";
 
 function App() {
   return (
@@ -34,13 +36,15 @@ function App() {
           />
           <Route path='/signin' element={<SignIn />} />
           <Route
-            path='/profile'
+            path='/profile/'
             element={
               <RequireAuth>
                 <Profile />
               </RequireAuth>
             }
-          />
+          >
+            <Route path='myposts' element={<ProfilePosts />} />
+          </Route>
           <Route path='/signin' element={<SignIn />} />
         </Routes>
       </Container>

@@ -1,5 +1,5 @@
 import { axiosInstance } from "../../config/axios";
-import { SIGN_IN, SIGN_OUT } from "../types/personTypes";
+import { ADD_USER_POSTS, SIGN_IN, SIGN_OUT } from "../types/personTypes";
 
 export const SignIn = (person) => ({
   type: SIGN_IN,
@@ -10,6 +10,13 @@ export const SignOut = () => ({
   type: SIGN_OUT,
   payload: {
     token: "",
+  },
+});
+
+export const addUserPosts = (userPosts) => ({
+  type: ADD_USER_POSTS,
+  payload: {
+    posts: userPosts,
   },
 });
 
@@ -32,3 +39,14 @@ export const SignInQuery =
 
     typeof cb === "function" && cb();
   };
+
+export const loadPersonPosts = (personId) => async (dispatch) => {
+  const response = await axiosInstance.get("posts/");
+
+  const postsFromApi = response.data;
+
+  const postsUser = postsFromApi.filter((post) => post.author._id === personId);
+  console.log(postsUser);
+  dispatch(addUserPosts(postsUser));
+  // dispatch(setAllPosts(postsFromApi));
+};

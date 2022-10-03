@@ -24,17 +24,25 @@ const PostsList = () => {
 
   return (
     <Grid container spacing={4} justifyContent='center'>
-      {posts.length ? (
-        posts
-          .map((post) => {
-            return <PostsItem key={post._id} {...post} />;
-          })
-          .reverse()
-      ) : (
-        <Loader />
-      )}
+      {!posts.length && <Loader />}
+      {posts
+        .map((post) => {
+          return <PostsItem key={post._id} {...post} />;
+        })
+        .reverse()}
     </Grid>
   );
 };
 
 export default PostsList;
+/*
+{posts.length ? (
+  posts
+    .map((post) => {
+      return <PostsItem key={post._id} {...post} />;
+    })
+    .reverse()
+) : (
+  <Loader />
+)}
+*/
