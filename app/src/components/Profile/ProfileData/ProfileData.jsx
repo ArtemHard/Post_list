@@ -1,11 +1,26 @@
 import { Box, Grid, TextField } from "@mui/material";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useContext } from "react";
+// import { useEffect } from "react";
+// import { useState } from "react";
+// import { useSelector } from "react-redux";
+import { ProfileContext } from "../../contexts/profileContext";
 import styles from "../profile.module.css";
 import { ProfileList } from "./ProfileList/ProfileList";
 
-export const ProfileData = ({ btnActive }) => {
-  const person = useSelector((store) => store.person);
+export const ProfileData = () => {
+  const { person, newName, setNewName, newAbout, setNewAbout, btnNameAbout } =
+    useContext(ProfileContext);
+
+  // const person = useSelector((store) => store.person);
+  // const [name, setName] = useState(person.name);
+  // const [about, setAbout] = useState(person.about);
+
+  const changeAbout = (e) => {
+    setNewAbout(e.target.value);
+  };
+  const changeName = (e) => {
+    setNewName(e.target.value);
+  };
 
   return (
     <Grid container spacing={3} justifyContent='center'>
@@ -25,25 +40,33 @@ export const ProfileData = ({ btnActive }) => {
         autoComplete='off'
       >
         <TextField
-          disabled={btnActive}
+          disabled={btnNameAbout}
           id='outlined-disabled'
           label='Имя'
-          defaultValue={person.name}
+          // defaultValue={person.name}
+          name='name'
+          value={newName}
+          onChange={changeName}
         />
         <TextField
-          disabled={btnActive}
+          disabled={btnNameAbout}
           id='outlined-disabled'
           label='Профессия'
-          defaultValue={person.about}
+          // defaultValue={person.about}
+          name='About'
+          value={newAbout}
+          onChange={changeAbout}
         />
         <TextField
-          disabled={btnActive}
+          // disabled={btnActive}
+          disabled
           id='outlined-disabled'
           label='avatar'
           defaultValue={person.avatar}
         />
         <TextField
-          disabled={btnActive}
+          // disabled={btnActive}
+          disabled
           id='outlined-disabled'
           label='Почта'
           defaultValue={person.email}

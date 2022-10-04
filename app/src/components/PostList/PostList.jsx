@@ -15,6 +15,8 @@ const PostsList = () => {
 
   const search = useSelector((store) => store.search);
 
+  const reqStatus = useSelector((store) => store.requestStatus);
+
   // const debouncedSearch = useDebounce(search, 500)
   const debouncedSearch = useThrottle(search, 500);
 
@@ -24,25 +26,18 @@ const PostsList = () => {
 
   return (
     <Grid container spacing={4} justifyContent='center'>
-      {!posts.length && <Loader />}
-      {posts
-        .map((post) => {
-          return <PostsItem key={post._id} {...post} />;
-        })
-        .reverse()}
+      {reqStatus === "pending" && <Loader />}
+      {reqStatus !== "pending" && reqStatus !== "fulfilled" && (
+        <b>{reqStatus}</b>
+      )}
+      {reqStatus === "fulfilled" &&
+        posts
+          .map((post) => {
+            return <PostsItem key={post._id} {...post} />;
+          })
+          .reverse()}
     </Grid>
   );
 };
 
 export default PostsList;
-/*
-{posts.length ? (
-  posts
-    .map((post) => {
-      return <PostsItem key={post._id} {...post} />;
-    })
-    .reverse()
-) : (
-  <Loader />
-)}
-*/

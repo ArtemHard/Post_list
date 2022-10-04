@@ -1,14 +1,18 @@
 // import { API_TOKEN } from "../../constants";
 import { ADD_NEW_POST, SET_ALL_POSTS } from "../types/postsTypes";
 import { axiosInstance } from "../../config/axios";
-import { addUserPosts } from "./personAC";
+import {
+  setRequestFailed,
+  setRequestFulfilled,
+  setRequestStarted,
+} from "./requestStatusAC";
 
 export const setAllPosts = (allPosts) => ({
   type: SET_ALL_POSTS,
   payload: allPosts,
 });
 
-export const loadAllPosts = (searchValue, personId) => async (dispatch) => {
+export const loadAllPosts = (searchValue) => async (dispatch) => {
   // const urlForFetch = searchValue ? `/search/?query=${searchValue}` : "/";
   // const response = await fetch(
   //   `https://api.react-learning.ru/posts${urlForFetch}`,
@@ -18,13 +22,21 @@ export const loadAllPosts = (searchValue, personId) => async (dispatch) => {
   //     },
   //   }
   // );
+  dispatch(setRequestStarted());
 
-  const response = await axiosInstance.get(`posts/search/`, {
-    params: {
-      query: searchValue,
-    },
-  });
+  let response;
 
+  try {
+    response = await axiosInstance.get(`posts/search/`, {
+      params: {
+        query: searchValue,
+      },
+    });
+  } catch (error) {
+    dispatch(setRequestFailed(error.message));
+    return;
+  }
+  dispatch(setRequestFulfilled());
   console.log(response.status);
 
   // const postsFromApi = await response.json();
@@ -48,12 +60,21 @@ export const queryNewPost = (post) => async (dispatch) => {
   //   body: post,
   // });
 
-  const bodyObject = JSON.parse(post);
+  dispatch(setRequestStarted());
 
-  const response = await axiosInstance.post("posts", bodyObject);
+  let response;
+
+  const bodyObject = JSON.parse(post);
+  try {
+    response = await axiosInstance.post("posts", bodyObject);
+  } catch (error) {
+    dispatch(setRequestFailed(error.message));
+    return;
+  }
 
   // const postFromApi = await response.json();
   const postFromApi = response.data;
 
   dispatch(addNewPost(postFromApi));
+  dispatch(setRequestFulfilled());
 };

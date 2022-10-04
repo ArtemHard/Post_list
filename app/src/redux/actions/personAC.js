@@ -1,5 +1,15 @@
 import { axiosInstance } from "../../config/axios";
-import { ADD_USER_POSTS, SIGN_IN, SIGN_OUT } from "../types/personTypes";
+import {
+  ADD_USER_POSTS,
+  CHANGE_USER_NAME_ABOUT,
+  SIGN_IN,
+  SIGN_OUT,
+} from "../types/personTypes";
+import {
+  setRequestFailed,
+  setRequestFulfilled,
+  setRequestStarted,
+} from "./requestStatusAC";
 
 export const SignIn = (person) => ({
   type: SIGN_IN,
@@ -11,6 +21,11 @@ export const SignOut = () => ({
   payload: {
     token: "",
   },
+});
+
+export const SetChangeUserNameAbout = (newData) => ({
+  type: CHANGE_USER_NAME_ABOUT,
+  payload: newData,
 });
 
 export const addUserPosts = (userPosts) => ({
@@ -41,12 +56,36 @@ export const SignInQuery =
   };
 
 export const loadPersonPosts = (personId) => async (dispatch) => {
-  const response = await axiosInstance.get("posts/");
+  dispatch(setRequestStarted());
+
+  let response;
+  try {
+    response = await axiosInstance.get("posts/");
+  } catch (error) {
+    dispatch(setRequestFailed(error.message));
+    return;
+  }
 
   const postsFromApi = response.data;
 
   const postsUser = postsFromApi.filter((post) => post.author._id === personId);
-  console.log(postsUser);
+  dispatch(setRequestFulfilled());
   dispatch(addUserPosts(postsUser));
   // dispatch(setAllPosts(postsFromApi));
+};
+
+export const changeUserNameAboutQuery = (newPerson) => async (dispatch) => {
+  dispatch(setRequestStarted());
+
+  let response;
+
+  try {
+    response = await axiosInstance.patch("users/me", newPerson);
+  } catch (error) {
+    dispatch(setRequestFailed(error.message));
+    return;
+  }
+  const newDataUserFromApi = response.data;
+  dispatch(setRequestFulfilled());
+  dispatch(SetChangeUserNameAbout(newDataUserFromApi));
 };

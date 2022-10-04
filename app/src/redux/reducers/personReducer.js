@@ -1,4 +1,9 @@
-import { ADD_USER_POSTS, SIGN_IN, SIGN_OUT } from "../types/personTypes";
+import {
+  ADD_USER_POSTS,
+  CHANGE_USER_NAME_ABOUT,
+  SIGN_IN,
+  SIGN_OUT,
+} from "../types/personTypes";
 
 export const personReducer = (state = {}, action) => {
   switch (action.type) {
@@ -15,6 +20,12 @@ export const personReducer = (state = {}, action) => {
       };
 
     case ADD_USER_POSTS:
+      return {
+        ...state,
+        ...action.payload,
+      };
+
+    case CHANGE_USER_NAME_ABOUT:
       return {
         ...state,
         ...action.payload,

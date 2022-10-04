@@ -7,6 +7,7 @@ const postsReducer = (state = [], action) => {
 
     case ADD_NEW_POST:
       return [...state, action.payload];
+
     default:
       return state;
   }

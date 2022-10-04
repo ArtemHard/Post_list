@@ -11,7 +11,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { Link, useNavigate } from "react-router-dom";
 import LinkMUI from "@mui/material/Link";
 import { styled, alpha } from "@mui/material/styles";
@@ -20,6 +19,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../../redux/actions/searchAC";
 import { SignOut } from "../../redux/actions/personAC";
+import logo from "./img/svgLogo.svg";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -104,6 +104,22 @@ const NavBar = () => {
     setAnchorElNav(null);
   };
 
+  const handleOpenSettings = (e) => {
+    // e.preventDefault();
+    switch (e.currentTarget.innerText) {
+      case "Войти":
+        navigate("/signin");
+        break;
+
+      case "Регистрация":
+        navigate("/signup");
+        break;
+
+      default:
+        break;
+    }
+  };
+
   const handleCloseUserMenu = (e) => {
     if (e.target.innerText === "Выход") {
       dispatch(SignOut());
@@ -123,7 +139,7 @@ const NavBar = () => {
     <AppBar position='static'>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <img src={logo} alt='Logo' style={{ padding: "1%" }} />
           <Typography
             variant='h6'
             noWrap
@@ -139,7 +155,7 @@ const NavBar = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            EasyInsta
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -172,7 +188,7 @@ const NavBar = () => {
               }}
             >
               {pages.map((page) => (
-                <LinkMUI component={Link} to={page.path}>
+                <LinkMUI component={Link} key={page.path} to={page.path}>
                   <MenuItem key={page.title} onClick={handleCloseNavMenu}>
                     <Typography textAlign='center'>{page.title}</Typography>
                   </MenuItem>
@@ -180,7 +196,6 @@ const NavBar = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant='h5'
             noWrap
@@ -197,11 +212,11 @@ const NavBar = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            EI
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <LinkMUI component={Link} to={page.path}>
+              <LinkMUI component={Link} key={page.path} to={page.path}>
                 <Button
                   key={page.title}
                   onClick={handleCloseNavMenu}
@@ -246,7 +261,13 @@ const NavBar = () => {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign='center'>{setting}</Typography>
+                  <Typography
+                    onClick={handleOpenSettings}
+                    key={setting}
+                    textAlign='center'
+                  >
+                    {setting}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
