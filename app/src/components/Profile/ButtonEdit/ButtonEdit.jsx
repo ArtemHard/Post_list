@@ -28,16 +28,12 @@ const ButtonEdit = () => {
     switch (status) {
       case "pending":
         setLoading(true);
-        // setBtnNameAbout(true);
-        // setBtnActive(true)
-        console.log("поставил тру ");
         break;
 
       default:
         setLoading(false);
-        console.log("поставил ФАЛС ");
     }
-  }, [status]);
+  }, [status, btnActive]);
 
   const submitHandler = () => {
     btnActive === true ? setBtnActive(false) : setBtnActive(true);

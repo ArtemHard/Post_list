@@ -2,10 +2,22 @@
     display: flex;
     justify-content: center;
 }
+.avatar__container {
+    margin-top: 2%;
+    border: 3px solid #1976d2;
+    width: 350px;
+    height: 350px;
+}
 .avatar {
-margin-top: 2%;
-width: 350px;
-height: 350px;
+/* margin-top: 2%; */
+width: 100%;
+height: 100%;
+}
+.avatar_blur {
+width: 100%;
+height: 100%;
+filter: blur(3px);
+    
 }
 .profile__btn_container {
     display: flex;
@@ -77,4 +89,9 @@ height: 350px;
 .inactive:hover {
     color: #ffffff
 }
-
+.textClick {
+    position: relative;
+    top: -275px;
+    right: -15px;
+    font-size: 54px;
+}

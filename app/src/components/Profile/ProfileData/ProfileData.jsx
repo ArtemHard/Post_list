@@ -10,10 +10,7 @@ import { ProfileList } from "./ProfileList/ProfileList";
 export const ProfileData = () => {
   const { person, newName, setNewName, newAbout, setNewAbout, btnNameAbout } =
     useContext(ProfileContext);
-
-  // const person = useSelector((store) => store.person);
-  // const [name, setName] = useState(person.name);
-  // const [about, setAbout] = useState(person.about);
+  console.log(btnNameAbout);
 
   const changeAbout = (e) => {
     setNewAbout(e.target.value);
@@ -22,9 +19,24 @@ export const ProfileData = () => {
     setNewName(e.target.value);
   };
 
+  const clickHandler = () => {
+    if (btnNameAbout === false) {
+      console.log("вызвал модульное окно");
+    }
+  };
+
+  const text = "Нажмите\nдля \nзамены";
+
   return (
     <Grid container spacing={3} justifyContent='center'>
-      <img className={styles.avatar} src={person.avatar} alt='avatar'></img>
+      <div className={styles.avatar__container} onClick={clickHandler}>
+        <img
+          className={btnNameAbout ? styles.avatar : styles.avatar_blur}
+          src={person.avatar}
+          alt='avatar'
+        />
+        {btnNameAbout ? null : <span className={styles.textClick}>{text}</span>}
+      </div>
       <Box
         component='form'
         sx={{
