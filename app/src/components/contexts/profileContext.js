@@ -6,6 +6,7 @@ const ProfileContext = createContext();
 const ProfileProvider = ({ children }) => {
   const [btnActive, setBtnActive] = useState(true);
   const [btnNameAbout, setBtnNameAbout] = useState(true);
+  const [modal, setModal] = useState(false);
 
   const person = useSelector((store) => store.person);
 
@@ -41,6 +42,8 @@ const ProfileProvider = ({ children }) => {
         resetObjUser,
         btnNameAbout,
         setBtnNameAbout,
+        modal,
+        setModal,
       }}
     >
       {children}

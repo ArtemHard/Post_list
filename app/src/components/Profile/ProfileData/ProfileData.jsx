@@ -1,16 +1,24 @@
 import { Box, Grid, TextField } from "@mui/material";
 import React, { useContext } from "react";
 // import { useEffect } from "react";
-// import { useState } from "react";
+import { useState } from "react";
 // import { useSelector } from "react-redux";
 import { ProfileContext } from "../../contexts/profileContext";
+import ModalAvatar from "../ModalAvatar/ModalAvatar";
 import styles from "../profile.module.css";
 import { ProfileList } from "./ProfileList/ProfileList";
 
 export const ProfileData = () => {
-  const { person, newName, setNewName, newAbout, setNewAbout, btnNameAbout } =
-    useContext(ProfileContext);
-  console.log(btnNameAbout);
+  const {
+    person,
+    newName,
+    setNewName,
+    newAbout,
+    setNewAbout,
+    btnNameAbout,
+    modal,
+    setModal,
+  } = useContext(ProfileContext);
 
   const changeAbout = (e) => {
     setNewAbout(e.target.value);
@@ -21,15 +29,25 @@ export const ProfileData = () => {
 
   const clickHandler = () => {
     if (btnNameAbout === false) {
-      console.log("вызвал модульное окно");
+      modal === true ? setModal(false) : setModal(true);
     }
   };
 
   const text = "Нажмите\nдля \nзамены";
 
+  const [viewModal, setViewModal] = useState(true);
+
   return (
     <Grid container spacing={3} justifyContent='center'>
-      <div className={styles.avatar__container} onClick={clickHandler}>
+      {<ModalAvatar avatarUrl={person.avatar} modal={modal} />}
+      <div
+        className={
+          btnNameAbout
+            ? styles.avatar__container
+            : styles.avatar__containerHover
+        }
+        onClick={clickHandler}
+      >
         <img
           className={btnNameAbout ? styles.avatar : styles.avatar_blur}
           src={person.avatar}

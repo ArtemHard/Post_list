@@ -8,6 +8,12 @@
     width: 350px;
     height: 350px;
 }
+.avatar__containerHover {
+    margin-top: 2%;
+    border: 3px solid #1976d2;
+    width: 350px;
+    height: 350px;
+}
 .avatar {
 /* margin-top: 2%; */
 width: 100%;
@@ -101,3 +107,7 @@ filter: blur(3px);
 .textClick:hover {
     opacity: 1;
 }
+
+ .avatar__containerHover:hover {
+    border: 3px solid #79b2eb;
+} 

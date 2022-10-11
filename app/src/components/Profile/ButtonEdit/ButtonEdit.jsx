@@ -49,8 +49,6 @@ const ButtonEdit = () => {
     dispatch(changeUserNameAboutQuery(createObjUser()));
   }
 
-  console.log(btnNameAbout);
-
   return (
     <div className={styles.profile__btn_container}>
       {btnActive === true ? (
