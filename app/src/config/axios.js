@@ -1,7 +1,6 @@
 import axios from "axios";
-import { API_TOKEN } from "../constants";
-
+const token = () => localStorage.getItem("token");
 export const axiosInstance = axios.create({
   baseURL: "https://api.react-learning.ru/",
-  headers: { Authorization: `Bearer ${API_TOKEN}` },
+  headers: { Authorization: `Bearer ${token()}` },
 });

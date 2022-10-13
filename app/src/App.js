@@ -8,9 +8,7 @@ import PostsList from "./components/PostList/PostList";
 import { RequireAuth } from "./components/Auth/RequireAuth/RequireAuth";
 import SignIn from "./components/Auth/SignIn/SignIn";
 import Profile from "./components/Profile/Profile";
-import PostsItem from "./components/PostsItem/PostsItem";
 import { ProfilePosts } from "./components/Profile/ProfileData/ProfileList/ProfilePosts/ProfilePosts";
-
 function App() {
   return (
     <BrowserRouter>

@@ -1,6 +1,8 @@
 import { axiosInstance } from "../../config/axios";
+// import { API_TOKEN } from "../../constants";
 import {
   ADD_USER_POSTS,
+  CHANGE_AVATAR,
   CHANGE_USER_NAME_ABOUT,
   SIGN_IN,
   SIGN_OUT,
@@ -23,6 +25,11 @@ export const SignOut = () => ({
   },
 });
 
+export const deleteUserToken = () => (dispatch) => {
+  localStorage.removeItem("token");
+  dispatch(SignOut());
+};
+
 export const SetChangeUserNameAbout = (newData) => ({
   type: CHANGE_USER_NAME_ABOUT,
   payload: newData,
@@ -32,6 +39,12 @@ export const addUserPosts = (userPosts) => ({
   type: ADD_USER_POSTS,
   payload: {
     posts: userPosts,
+  },
+});
+export const changeAvatar = (url) => ({
+  type: CHANGE_AVATAR,
+  payload: {
+    avatar: url,
   },
 });
 
@@ -44,7 +57,7 @@ export const SignInQuery =
     });
 
     const person = response.data;
-
+    localStorage.setItem("token", person?.token);
     dispatch(
       SignIn({
         ...person.data,
@@ -88,4 +101,20 @@ export const changeUserNameAboutQuery = (newPerson) => async (dispatch) => {
   const newDataUserFromApi = response.data;
   dispatch(setRequestFulfilled());
   dispatch(SetChangeUserNameAbout(newDataUserFromApi));
+};
+
+export const changeAvatarQuery = (urlObject) => async (dispatch) => {
+  dispatch(setRequestStarted());
+  console.log(urlObject);
+  let response;
+
+  try {
+    response = await axiosInstance.patch("users/me/avatar", urlObject);
+  } catch (error) {
+    dispatch(setRequestFailed(error.message));
+  }
+
+  dispatch(setRequestFulfilled());
+  console.log(response.data?.avatar);
+  dispatch(changeAvatar(response.data?.avatar));
 };

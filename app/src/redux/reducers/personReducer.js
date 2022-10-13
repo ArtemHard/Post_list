@@ -1,5 +1,6 @@
 import {
   ADD_USER_POSTS,
+  CHANGE_AVATAR,
   CHANGE_USER_NAME_ABOUT,
   SIGN_IN,
   SIGN_OUT,
@@ -26,6 +27,11 @@ export const personReducer = (state = {}, action) => {
       };
 
     case CHANGE_USER_NAME_ABOUT:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case CHANGE_AVATAR:
       return {
         ...state,
         ...action.payload,

@@ -1,15 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { AvatarForm } from "./AvatarForm/AvatarForm";
-import styles from "./modalavatar.module.css";
 
-const ModalAvatar = (avatarUrl, { modal }) => {
-  if (!modal) return null;
-  console.log({ modal });
+const ModalAvatar = (props) => {
   return ReactDOM.createPortal(
-    <div className={styles.wrapper}>
-      <AvatarForm avatarUrl={avatarUrl} />
-    </div>,
+    props.modal && <AvatarForm avatarUrl={props} />,
     document.getElementById("modal-root")
   );
 };

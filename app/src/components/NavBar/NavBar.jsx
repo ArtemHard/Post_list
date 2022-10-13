@@ -18,7 +18,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../../redux/actions/searchAC";
-import { SignOut } from "../../redux/actions/personAC";
+import { deleteUserToken } from "../../redux/actions/personAC";
 import logo from "./img/svgLogo.svg";
 
 const Search = styled("div")(({ theme }) => ({
@@ -122,7 +122,7 @@ const NavBar = () => {
 
   const handleCloseUserMenu = (e) => {
     if (e.target.innerText === "Выход") {
-      dispatch(SignOut());
+      dispatch(deleteUserToken());
     }
     if (e.target.innerText === "Профиль") {
       navigate("/profile");

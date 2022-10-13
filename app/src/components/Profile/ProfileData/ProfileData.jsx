@@ -1,8 +1,5 @@
 import { Box, Grid, TextField } from "@mui/material";
 import React, { useContext } from "react";
-// import { useEffect } from "react";
-import { useState } from "react";
-// import { useSelector } from "react-redux";
 import { ProfileContext } from "../../contexts/profileContext";
 import ModalAvatar from "../ModalAvatar/ModalAvatar";
 import styles from "../profile.module.css";
@@ -35,11 +32,15 @@ export const ProfileData = () => {
 
   const text = "Нажмите\nдля \nзамены";
 
-  const [viewModal, setViewModal] = useState(true);
-
   return (
     <Grid container spacing={3} justifyContent='center'>
-      {<ModalAvatar avatarUrl={person.avatar} modal={modal} />}
+      {
+        <ModalAvatar
+          avatarUrl={person.avatar}
+          modal={modal}
+          closeModal={clickHandler}
+        />
+      }
       <div
         className={
           btnNameAbout
