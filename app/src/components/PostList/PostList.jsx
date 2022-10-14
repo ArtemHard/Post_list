@@ -28,7 +28,7 @@ const PostsList = () => {
     <Grid container spacing={4} justifyContent='center'>
       {reqStatus === "pending" && <Loader />}
       {reqStatus !== "pending" && reqStatus !== "fulfilled" && (
-        <b>{reqStatus}</b>
+        <b className={{ top: "100px" }}>{reqStatus}</b>
       )}
       {reqStatus === "fulfilled" &&
         posts
