@@ -7,10 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { changeAvatarQuery } from "../../../../redux/actions/personAC";
+import CloseIcon from "@mui/icons-material/Close";
 
 export const AvatarForm = ({ avatarUrl }) => {
   const status = useSelector((store) => store.requestStatus);
-  const token = useSelector((store) => store.person.token);
   const url = avatarUrl.avatarUrl;
   const [loading, setLoading] = React.useState(false);
   useEffect(() => {
@@ -38,7 +38,10 @@ export const AvatarForm = ({ avatarUrl }) => {
     console.log(dataForServer);
     dispatch(changeAvatarQuery(dataForServer));
   };
-
+  const closeModalClickHandler = (e) => {
+    e.preventDefault();
+    if (e.target.id === "modal_wrapper") avatarUrl.closeModal();
+  };
   const escHandler = (e) => {
     console.log(e.key);
     if (e.key === "Escape") avatarUrl.closeModal();
@@ -51,7 +54,11 @@ export const AvatarForm = ({ avatarUrl }) => {
   }, []);
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      id='modal_wrapper'
+      onClick={closeModalClickHandler}
+    >
       <form ref={formRef} className={styles.inner} onSubmit={SubmitHandler}>
         <TextField
           id='outlined-disabled'

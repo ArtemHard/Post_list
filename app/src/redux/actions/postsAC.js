@@ -23,9 +23,7 @@ export const loadAllPosts = (searchValue) => async (dispatch) => {
   //   }
   // );
   dispatch(setRequestStarted());
-
   let response;
-
   try {
     response = await axiosInstance.get(`posts/search/`, {
       params: {

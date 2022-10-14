@@ -9,6 +9,7 @@ import { RequireAuth } from "./components/Auth/RequireAuth/RequireAuth";
 import SignIn from "./components/Auth/SignIn/SignIn";
 import Profile from "./components/Profile/Profile";
 import { ProfilePosts } from "./components/Profile/ProfileData/ProfileList/ProfilePosts/ProfilePosts";
+
 function App() {
   return (
     <BrowserRouter>
