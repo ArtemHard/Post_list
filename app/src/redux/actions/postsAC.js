@@ -1,6 +1,6 @@
 // import { API_TOKEN } from "../../constants";
 import {
-  ADD_LIKE_POST,
+  CHANGE_LIKE_POST,
   ADD_NEW_POST,
   SET_ALL_POSTS,
 } from "../types/postsTypes";
@@ -17,7 +17,7 @@ export const setAllPosts = (allPosts) => ({
 });
 
 export const changeLike = (post) => ({
-  type: ADD_LIKE_POST,
+  type: CHANGE_LIKE_POST,
   payload: post,
 });
 
@@ -84,10 +84,23 @@ export const queryNewPost = (post) => async (dispatch) => {
   dispatch(setRequestFulfilled());
 };
 
-export const queryChangeLike = (postId) => async (dispatch) => {
+export const queryAddLike = (postId) => async (dispatch) => {
   let response;
   try {
     response = await axiosInstance.put(`posts/likes/${postId}`);
+  } catch (error) {
+    console.log(error.message);
+    return;
+  }
+
+  const postFromApi = response.data;
+
+  dispatch(changeLike(postFromApi));
+};
+export const queryDeleteLike = (postId) => async (dispatch) => {
+  let response;
+  try {
+    response = await axiosInstance.delete(`posts/likes/${postId}`);
   } catch (error) {
     console.log(error.message);
     return;

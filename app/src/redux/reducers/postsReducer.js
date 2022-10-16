@@ -1,5 +1,5 @@
 import {
-  ADD_LIKE_POST,
+  CHANGE_LIKE_POST,
   ADD_NEW_POST,
   SET_ALL_POSTS,
 } from "../types/postsTypes";
@@ -12,7 +12,7 @@ const postsReducer = (state = [], action) => {
     case ADD_NEW_POST:
       return [...state, action.payload];
 
-    case ADD_LIKE_POST:
+    case CHANGE_LIKE_POST:
       for (let index = 0; index < state.length; index++) {
         const element = state[index];
         if (element._id === action.payload._id) {

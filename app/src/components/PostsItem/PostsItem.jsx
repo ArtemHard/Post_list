@@ -18,7 +18,7 @@ import { Grid } from "@mui/material";
 import { useServerData } from "../../hooks/useServerData";
 import { useTags } from "../../hooks/useTags";
 import { useLikes } from "../../hooks/useLikes";
-import { queryChangeLike } from "../../redux/actions/postsAC";
+import { queryAddLike, queryDeleteLike } from "../../redux/actions/postsAC";
 import { useDispatch } from "react-redux";
 
 const ExpandMore = styled((props) => {
@@ -58,7 +58,9 @@ export default function PostsItem({
 
   const likeClicHandler = (e) => {
     e.preventDefault();
-    dispatch(queryChangeLike(_id));
+    likesInfo?.color === "red"
+      ? dispatch(queryDeleteLike(_id))
+      : dispatch(queryAddLike(_id));
   };
 
   return (
@@ -84,7 +86,7 @@ export default function PostsItem({
             {description}
           </Typography>
           <hr />
-          <b>#</b> <text>{tagsString}</text>
+          <b>#</b> <span>{tagsString}</span>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label='add to favorites' onClick={likeClicHandler}>
