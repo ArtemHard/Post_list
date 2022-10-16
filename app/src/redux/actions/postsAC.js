@@ -1,5 +1,9 @@
 // import { API_TOKEN } from "../../constants";
-import { ADD_NEW_POST, SET_ALL_POSTS } from "../types/postsTypes";
+import {
+  ADD_LIKE_POST,
+  ADD_NEW_POST,
+  SET_ALL_POSTS,
+} from "../types/postsTypes";
 import { axiosInstance } from "../../config/axios";
 import {
   setRequestFailed,
@@ -10,6 +14,11 @@ import {
 export const setAllPosts = (allPosts) => ({
   type: SET_ALL_POSTS,
   payload: allPosts,
+});
+
+export const changeLike = (post) => ({
+  type: ADD_LIKE_POST,
+  payload: post,
 });
 
 export const loadAllPosts = (searchValue) => async (dispatch) => {
@@ -35,9 +44,7 @@ export const loadAllPosts = (searchValue) => async (dispatch) => {
     return;
   }
   dispatch(setRequestFulfilled());
-  console.log(response.status);
 
-  // const postsFromApi = await response.json();
   const postsFromApi = response.data;
 
   dispatch(setAllPosts(postsFromApi));
@@ -75,4 +82,18 @@ export const queryNewPost = (post) => async (dispatch) => {
 
   dispatch(addNewPost(postFromApi));
   dispatch(setRequestFulfilled());
+};
+
+export const queryChangeLike = (postId) => async (dispatch) => {
+  let response;
+  try {
+    response = await axiosInstance.put(`posts/likes/${postId}`);
+  } catch (error) {
+    console.log(error.message);
+    return;
+  }
+
+  const postFromApi = response.data;
+
+  dispatch(changeLike(postFromApi));
 };

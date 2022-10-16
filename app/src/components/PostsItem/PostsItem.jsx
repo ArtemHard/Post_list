@@ -16,6 +16,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Grid } from "@mui/material";
 import { useServerData } from "../../hooks/useServerData";
+import { useTags } from "../../hooks/useTags";
+import { useLikes } from "../../hooks/useLikes";
+import { queryChangeLike } from "../../redux/actions/postsAC";
+import { useDispatch } from "react-redux";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -28,7 +32,17 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function PostsItem({ image, author, title, text, updated_at }) {
+export default function PostsItem({
+  image,
+  author,
+  title,
+  text,
+  updated_at,
+  tags,
+  likes,
+  personId,
+  _id,
+}) {
   const [expanded, setExpanded] = React.useState(false);
   const updatedTime = useServerData(updated_at);
   const handleExpandClick = () => {
@@ -36,6 +50,16 @@ export default function PostsItem({ image, author, title, text, updated_at }) {
   };
 
   const description = text.length > 200 ? text.slice(0, 200) + "..." : text;
+
+  const tagsString = useTags(tags);
+  const likesInfo = useLikes(likes, personId);
+
+  const dispatch = useDispatch();
+
+  const likeClicHandler = (e) => {
+    e.preventDefault();
+    dispatch(queryChangeLike(_id));
+  };
 
   return (
     <Grid item xs={6}>
@@ -52,7 +76,6 @@ export default function PostsItem({ image, author, title, text, updated_at }) {
             </IconButton>
           }
           title={title}
-          // subheader='September 14, 2016'
           subheader={updatedTime}
         />
         <CardMedia component='img' height='194' image={image} alt={title} />
@@ -60,10 +83,17 @@ export default function PostsItem({ image, author, title, text, updated_at }) {
           <Typography variant='body2' color='text.secondary'>
             {description}
           </Typography>
+          <hr />
+          <b>#</b> <text>{tagsString}</text>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label='add to favorites'>
-            <FavoriteIcon />
+          <IconButton aria-label='add to favorites' onClick={likeClicHandler}>
+            <FavoriteIcon
+              sx={{
+                color: likesInfo?.color,
+              }}
+            />{" "}
+            <span>{likesInfo?.amount}</span>
           </IconButton>
           {/* <IconButton aria-label="share">
           <ShareIcon />

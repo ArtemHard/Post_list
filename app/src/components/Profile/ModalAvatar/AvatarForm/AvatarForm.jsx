@@ -17,15 +17,6 @@ export const AvatarForm = ({ avatarUrl }) => {
     status === "pending" ? setLoading(true) : setLoading(false);
   }, [status]);
 
-  //   const changeAdress = (e) => {
-  //     setAdress(e.target.value);
-  //   };
-
-  const formRef = useRef(null);
-
-  useEffect(() => {
-    formRef.current.elements.url.value = url;
-  }, [url]);
   const dispatch = useDispatch();
 
   const SubmitHandler = (e) => {
@@ -35,12 +26,7 @@ export const AvatarForm = ({ avatarUrl }) => {
     const dataForServer = {
       avatar: formData.url,
     };
-    console.log(dataForServer);
     dispatch(changeAvatarQuery(dataForServer));
-  };
-  const closeModalClickHandler = (e) => {
-    e.preventDefault();
-    if (e.target.id === "modal_wrapper") avatarUrl.closeModal();
   };
   const escHandler = (e) => {
     console.log(e.key);
@@ -54,22 +40,10 @@ export const AvatarForm = ({ avatarUrl }) => {
   }, []);
 
   return (
-    <div
-      className={styles.wrapper}
-      id='modal_wrapper'
-      onClick={closeModalClickHandler}
-    >
-      <form ref={formRef} className={styles.inner} onSubmit={SubmitHandler}>
-        <TextField
-          id='outlined-disabled'
-          label=''
-          name='url'
-          // defaultValue={url}
-          // value={adress}
-          // onChange={changeAdress}
-        />
+    <div className={styles.wrapper} id='modal_wrapper'>
+      <form className={styles.inner} onSubmit={SubmitHandler}>
+        <TextField id='outlined-disabled' label='' name='url' />
         <LoadingButton
-          // onClick={handleClick}
           endIcon={<SendIcon />}
           loading={loading}
           loadingPosition='end'

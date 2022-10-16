@@ -12,6 +12,7 @@ const PostsList = () => {
   const dispatch = useDispatch();
 
   const posts = useSelector((store) => store.posts);
+  const personId = useSelector((store) => store.person._id);
 
   const search = useSelector((store) => store.search);
 
@@ -33,7 +34,7 @@ const PostsList = () => {
       {reqStatus === "fulfilled" &&
         posts
           .map((post) => {
-            return <PostsItem key={post._id} {...post} />;
+            return <PostsItem key={post._id} personId={personId} {...post} />;
           })
           .reverse()}
     </Grid>
