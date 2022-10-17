@@ -36,7 +36,7 @@ export const ProfileList = () => {
       <LoadingButton
         // onClick={handleClick}
         loading={loading}
-        loadingIndicator='Loading…'
+        loadingIndicator='Загрузка…'
         variant='outlined'
       >
         {textBtn}

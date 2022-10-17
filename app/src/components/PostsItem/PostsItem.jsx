@@ -11,15 +11,15 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Box, Grid, Menu, MenuItem, Tooltip } from "@mui/material";
+import { Grid, Menu, MenuItem, Tooltip } from "@mui/material";
 import { useServerData } from "../../hooks/useServerData";
 import { useTags } from "../../hooks/useTags";
 import { useLikes } from "../../hooks/useLikes";
 import { queryAddLike, queryDeleteLike } from "../../redux/actions/postsAC";
 import { useDispatch } from "react-redux";
+import { DeletePostModal } from "./DeletePostModal/DeletePostModal";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -77,21 +77,39 @@ export default function PostsItem({
       : setAnchorElUser(null);
   };
 
+  const [modal, setModal] = React.useState(false);
+
   const handleOpenSettings = (e) => {
-    if (e.target.innerText === "Выход") {
-      // dispatch(deleteUserToken());
+    if (e.target.innerText === "Удалить") {
+      setModal(true);
     }
     if (e.target.innerText === "Профиль") {
       // navigate("/profile");
     }
   };
 
+  React.useEffect(() => {
+    if (modal) {
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = "17px";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+      document.body.style.paddingRight = "0px";
+    };
+  }, [modal]);
+
   return (
     <Grid item xs={6}>
+      <DeletePostModal modal={modal} setModal={setModal} />
       <Card>
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label='recipe'>
+            <Avatar
+              sx={{ bgcolor: red[500] }}
+              aria-label='recipe'
+              src={author.avatar}
+            >
               {author.name.slice(0, 1)}
             </Avatar>
           }

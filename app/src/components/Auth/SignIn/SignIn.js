@@ -57,7 +57,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component='h1' variant='h5'>
-            Sign in
+            Вход
           </Typography>
           <Box
             component='form'
@@ -70,7 +70,7 @@ export default function SignIn() {
               required
               fullWidth
               id='email'
-              label='Email Address'
+              label='Адрес почты'
               name='email'
               autoComplete='email'
               autoFocus
@@ -80,7 +80,7 @@ export default function SignIn() {
               required
               fullWidth
               name='password'
-              label='Password'
+              label='Пароль'
               type='password'
               id='password'
               autoComplete='current-password'
@@ -91,7 +91,7 @@ export default function SignIn() {
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Войти
             </Button>
           </Box>
         </Box>

@@ -63,15 +63,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const pages = [
   {
-    title: "Main",
+    title: "Главная",
     path: "/",
   },
   {
-    title: "Posts",
+    title: "Лента",
     path: "/posts",
   },
   {
-    title: "Create New Post",
+    title: "Создать пост",
     path: "/postform",
   },
 ];
@@ -232,13 +232,13 @@ const NavBar = () => {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder='Search…'
+              placeholder='Поиск…'
               inputProps={{ "aria-label": "search" }}
               onChange={searchHandler}
             />
           </Search>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title='Open settings'>
+            <Tooltip title='Настройки'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt='Remy Sharp' src={hrefAvatar} />
               </IconButton>
