@@ -14,7 +14,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Grid } from "@mui/material";
+import { Box, Grid, Menu, MenuItem, Tooltip } from "@mui/material";
 import { useServerData } from "../../hooks/useServerData";
 import { useTags } from "../../hooks/useTags";
 import { useLikes } from "../../hooks/useLikes";
@@ -49,6 +49,11 @@ export default function PostsItem({
     setExpanded(!expanded);
   };
 
+  let settings;
+  personId === author._id
+    ? (settings = ["Удалить", "Редактировать", "Открыть"])
+    : (settings = ["Открыть"]);
+
   const description = text.length > 200 ? text.slice(0, 200) + "..." : text;
 
   const tagsString = useTags(tags);
@@ -63,6 +68,24 @@ export default function PostsItem({
       : dispatch(queryAddLike(_id));
   };
 
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleCloseOpenUserMenu = (e) => {
+    e.preventDefault();
+    anchorElUser === null
+      ? setAnchorElUser(e.currentTarget)
+      : setAnchorElUser(null);
+  };
+
+  const handleOpenSettings = (e) => {
+    if (e.target.innerText === "Выход") {
+      // dispatch(deleteUserToken());
+    }
+    if (e.target.innerText === "Профиль") {
+      // navigate("/profile");
+    }
+  };
+
   return (
     <Grid item xs={6}>
       <Card>
@@ -73,9 +96,49 @@ export default function PostsItem({
             </Avatar>
           }
           action={
-            <IconButton aria-label='settings'>
-              <MoreVertIcon />
-            </IconButton>
+            <Tooltip title={Boolean(anchorElUser) ? null : "Дополнительно"}>
+              <IconButton
+                aria-label='settings'
+                onClick={handleCloseOpenUserMenu}
+              >
+                <MoreVertIcon />
+                <Menu
+                  sx={{
+                    pr: "0px",
+                    mt: "34px",
+                  }}
+                  id='menu-appbar'
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    padding: "0px",
+                    vertical: "top",
+                    horizontal: "center",
+                    getContentAnchorEl: null,
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    padding: "0px",
+                    vertical: "top",
+                    horizontal: "center",
+                    getContentAnchorEl: null,
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseOpenUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem key={setting} onClick={handleCloseOpenUserMenu}>
+                      <Typography
+                        onClick={handleOpenSettings}
+                        key={setting}
+                        textAlign='center'
+                      >
+                        {setting}
+                      </Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </IconButton>
+            </Tooltip>
           }
           title={title}
           subheader={updatedTime}

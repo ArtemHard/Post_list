@@ -29,8 +29,9 @@ export const AvatarForm = ({ avatarUrl }) => {
     dispatch(changeAvatarQuery(dataForServer));
   };
   const escHandler = (e) => {
-    console.log(e.key);
-    if (e.key === "Escape") avatarUrl.closeModal();
+    console.log(e.currentTarget.id);
+    if (e.key === "Escape" || e.currentTarget.id === "svg_closeIcon")
+      avatarUrl.closeModal();
   };
   useEffect(() => {
     window.document.addEventListener("keydown", escHandler);
@@ -41,6 +42,11 @@ export const AvatarForm = ({ avatarUrl }) => {
 
   return (
     <div className={styles.wrapper} id='modal_wrapper'>
+      <CloseIcon
+        className={styles.closeIcon}
+        id='svg_closeIcon'
+        onClick={escHandler}
+      />
       <form className={styles.inner} onSubmit={SubmitHandler}>
         <TextField id='outlined-disabled' label='' name='url' />
         <LoadingButton
