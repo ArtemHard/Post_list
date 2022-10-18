@@ -3,6 +3,7 @@ import {
   CHANGE_LIKE_POST,
   ADD_NEW_POST,
   SET_ALL_POSTS,
+  DELETE_POST,
 } from "../types/postsTypes";
 import { axiosInstance } from "../../config/axios";
 import {
@@ -10,6 +11,7 @@ import {
   setRequestFulfilled,
   setRequestStarted,
 } from "./requestStatusAC";
+import { deleteUserPost } from "./personAC";
 
 export const setAllPosts = (allPosts) => ({
   type: SET_ALL_POSTS,
@@ -53,6 +55,11 @@ export const loadAllPosts = (searchValue) => async (dispatch) => {
 export const addNewPost = (allPosts) => ({
   type: ADD_NEW_POST,
   payload: allPosts,
+});
+
+export const deletePost = (postId) => ({
+  type: DELETE_POST,
+  payload: postId,
 });
 
 export const queryNewPost = (post) => async (dispatch) => {
@@ -109,4 +116,19 @@ export const queryDeleteLike = (postId) => async (dispatch) => {
   const postFromApi = response.data;
 
   dispatch(changeLike(postFromApi));
+};
+
+export const queryDeletePost = (postId) => async (dispatch) => {
+  dispatch(setRequestStarted("deletePending"));
+  let response;
+  try {
+    response = await axiosInstance.delete(`posts/${postId}`);
+  } catch (error) {
+    dispatch(setRequestFailed(error.message));
+    return;
+  }
+
+  if (response.status === 200) dispatch(deletePost(postId));
+  dispatch(deleteUserPost(postId));
+  dispatch(setRequestFulfilled());
 };

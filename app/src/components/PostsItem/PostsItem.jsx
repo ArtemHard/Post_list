@@ -101,7 +101,7 @@ export default function PostsItem({
 
   return (
     <Grid item xs={6}>
-      <DeletePostModal modal={modal} setModal={setModal} />
+      <DeletePostModal modal={modal} setModal={setModal} postId={_id} />
       <Card>
         <CardHeader
           avatar={

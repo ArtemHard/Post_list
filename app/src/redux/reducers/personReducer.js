@@ -2,6 +2,7 @@ import {
   ADD_USER_POSTS,
   CHANGE_AVATAR,
   CHANGE_USER_NAME_ABOUT,
+  DELETE_USER_POST,
   SIGN_IN,
   SIGN_OUT,
 } from "../types/personTypes";
@@ -24,6 +25,16 @@ export const personReducer = (state = {}, action) => {
       return {
         ...state,
         ...action.payload,
+      };
+
+    case DELETE_USER_POST:
+      const newPosts = state.posts.filter(
+        (post) => post._id !== action.payload
+      );
+
+      return {
+        ...state,
+        posts: newPosts,
       };
 
     case CHANGE_USER_NAME_ABOUT:

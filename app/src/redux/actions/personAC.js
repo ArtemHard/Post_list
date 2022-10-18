@@ -4,6 +4,7 @@ import {
   ADD_USER_POSTS,
   CHANGE_AVATAR,
   CHANGE_USER_NAME_ABOUT,
+  DELETE_USER_POST,
   SIGN_IN,
   SIGN_OUT,
 } from "../types/personTypes";
@@ -41,6 +42,12 @@ export const addUserPosts = (userPosts) => ({
     posts: userPosts,
   },
 });
+
+export const deleteUserPost = (postId) => ({
+  type: DELETE_USER_POST,
+  payload: postId,
+});
+
 export const changeAvatar = (url) => ({
   type: CHANGE_AVATAR,
   payload: {

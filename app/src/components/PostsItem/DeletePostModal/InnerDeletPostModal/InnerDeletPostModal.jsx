@@ -4,8 +4,24 @@ import { Alert, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Stack from "@mui/material/Stack";
+import { useDispatch, useSelector } from "react-redux";
+import { queryDeletePost } from "../../../../redux/actions/postsAC";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export const InnerDeletPostModal = (props) => {
+  const dispatch = useDispatch();
+  const status = useSelector((store) => store.requestStatus);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    status === "deletePending" ? setLoading(true) : setLoading(false);
+  }, [status]);
+
+  const deletePostHandler = (e) => {
+    e.preventDefault();
+    dispatch(queryDeletePost(props.postId));
+  };
   return (
     <div className={styles.wrapper}>
       <form className={styles.inner}>
@@ -18,11 +34,12 @@ export const InnerDeletPostModal = (props) => {
           </Button>
           <LoadingButton
             endIcon={<DeleteIcon />}
-            //   loading={loading}
+            loading={loading}
             loadingPosition='end'
             variant='contained'
             type='submit'
             color='error'
+            onClick={deletePostHandler}
           >
             Удалить
           </LoadingButton>

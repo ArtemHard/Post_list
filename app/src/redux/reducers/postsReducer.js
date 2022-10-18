@@ -2,6 +2,7 @@ import {
   CHANGE_LIKE_POST,
   ADD_NEW_POST,
   SET_ALL_POSTS,
+  DELETE_POST,
 } from "../types/postsTypes";
 
 const postsReducer = (state = [], action) => {
@@ -21,6 +22,10 @@ const postsReducer = (state = [], action) => {
         }
       }
       return [...state];
+
+    case DELETE_POST:
+      const newState = state.filter((post) => post._id !== action.payload);
+      return newState;
 
     default:
       return state;
