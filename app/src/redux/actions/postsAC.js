@@ -4,6 +4,7 @@ import {
   ADD_NEW_POST,
   SET_ALL_POSTS,
   DELETE_POST,
+  GET_SINGLE_POST,
 } from "../types/postsTypes";
 import { axiosInstance } from "../../config/axios";
 import {
@@ -60,6 +61,11 @@ export const addNewPost = (allPosts) => ({
 export const deletePost = (postId) => ({
   type: DELETE_POST,
   payload: postId,
+});
+
+export const getSinglePost = (post) => ({
+  type: GET_SINGLE_POST,
+  payload: post,
 });
 
 export const queryNewPost = (post) => async (dispatch) => {
@@ -130,5 +136,22 @@ export const queryDeletePost = (postId) => async (dispatch) => {
 
   if (response.status === 200) dispatch(deletePost(postId));
   dispatch(deleteUserPost(postId));
-  dispatch(setRequestFulfilled());
+  dispatch(setRequestFulfilled("deleteUserPost-fulfilled"));
+};
+
+export const queryGetSinglePost = (postId) => async (dispatch) => {
+  dispatch(setRequestStarted("getSinglePost-pending"));
+  let response;
+  try {
+    response = await axiosInstance.get(`posts/${postId}`);
+  } catch (error) {
+    dispatch(setRequestFailed(error.message));
+    return;
+  }
+
+  const postFromApi = [response.data];
+  console.log(postFromApi);
+
+  dispatch(setAllPosts(postFromApi));
+  dispatch(setRequestFulfilled("getSinglePost-Fulfilled"));
 };

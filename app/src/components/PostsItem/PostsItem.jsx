@@ -20,6 +20,7 @@ import { useLikes } from "../../hooks/useLikes";
 import { queryAddLike, queryDeleteLike } from "../../redux/actions/postsAC";
 import { useDispatch } from "react-redux";
 import { DeletePostModal } from "./DeletePostModal/DeletePostModal";
+import { Link } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -161,7 +162,9 @@ export default function PostsItem({
           title={title}
           subheader={updatedTime}
         />
-        <CardMedia component='img' height='194' image={image} alt={title} />
+        <Link to={`/posts/${_id}`}>
+          <CardMedia component='img' height='194' image={image} alt={title} />
+        </Link>
         <CardContent>
           <Typography variant='body2' color='text.secondary'>
             {description}

@@ -3,6 +3,7 @@ import {
   ADD_NEW_POST,
   SET_ALL_POSTS,
   DELETE_POST,
+  GET_SINGLE_POST,
 } from "../types/postsTypes";
 
 const postsReducer = (state = [], action) => {
@@ -26,6 +27,9 @@ const postsReducer = (state = [], action) => {
     case DELETE_POST:
       const newState = state.filter((post) => post._id !== action.payload);
       return newState;
+
+    case GET_SINGLE_POST:
+      return action.payload;
 
     default:
       return state;
