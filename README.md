@@ -1,9 +1,11 @@
 # Post_list
 
-easies post list:
+Простой список постов:
 
-- authorization
-- create, updating posts
+- Авторизация
+- Создание, удаление, поиск постов.
+- простановка лайков, удалние лайков
+- Редактирование профиля
 - routers
 - redux
 
