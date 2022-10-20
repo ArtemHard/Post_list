@@ -6,6 +6,7 @@ import { useThrottle } from "../../hooks/useThrottle";
 import PostsItem from "../PostsItem/PostsItem";
 import { loadAllPosts } from "../../redux/actions/postsAC";
 import Loader from "../Loader/Loader";
+import { ButtonUp } from "../generic/ButtonUp/ButtonUp";
 // import {useThrottle} from '@react-hook/throttle'
 
 const PostsList = () => {
@@ -37,6 +38,7 @@ const PostsList = () => {
             return <PostsItem key={post._id} personId={personId} {...post} />;
           })
           .reverse()}
+      {<ButtonUp />}
     </Grid>
   );
 };

@@ -150,7 +150,6 @@ export const queryGetSinglePost = (postId) => async (dispatch) => {
   }
 
   const postFromApi = [response.data];
-  console.log(postFromApi);
 
   dispatch(setAllPosts(postFromApi));
   dispatch(setRequestFulfilled("getSinglePost-Fulfilled"));

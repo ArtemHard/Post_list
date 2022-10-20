@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
+import { ButtonUp } from "../../../../generic/ButtonUp/ButtonUp";
 import PostsItem from "../../../../PostsItem/PostsItem";
 
 export const ProfilePosts = () => {
@@ -14,6 +15,7 @@ export const ProfilePosts = () => {
           return <PostsItem key={post._id} personId={personId} {...post} />;
         })
         .reverse()}
+      {<ButtonUp />}
     </Grid>
   );
 };

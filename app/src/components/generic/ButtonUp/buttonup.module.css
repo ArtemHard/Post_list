@@ -1,0 +1,10 @@
+.topToBtm{
+    position: relative;
+  }
+  .iconPosition{
+    position: fixed;
+    bottom: 40px;
+    right: 25px;
+    z-index: 20;
+  }
+  
