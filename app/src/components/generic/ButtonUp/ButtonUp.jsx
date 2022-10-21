@@ -26,7 +26,12 @@ export const ButtonUp = () => {
     <div className={style.topToBtm}>
       {showTopBtn && (
         <Button
-          className={style.iconPosition + " " + style.iconStyle}
+          sx={{
+            position: "fixed",
+            bottom: "40px",
+            right: "25px",
+            zIndex: "20",
+          }}
           variant='contained'
           onClick={goToTop}
         >

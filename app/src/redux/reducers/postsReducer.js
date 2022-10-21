@@ -4,6 +4,7 @@ import {
   SET_ALL_POSTS,
   DELETE_POST,
   GET_SINGLE_POST,
+  ADD_COMMENT,
 } from "../types/postsTypes";
 
 const postsReducer = (state = [], action) => {
@@ -30,6 +31,16 @@ const postsReducer = (state = [], action) => {
 
     case GET_SINGLE_POST:
       return action.payload;
+
+    case ADD_COMMENT:
+      for (let index = 0; index < state.length; index++) {
+        const element = state[index];
+        if (element._id === action.payload._id) {
+          element.comments = action.payload.comments;
+          break;
+        }
+      }
+      return [...state];
 
     default:
       return state;

@@ -18,7 +18,7 @@ export const Comment = ({
   const time = useServerData(created_at);
 
   return (
-    <Card sx={{ maxWidth: 690 }}>
+    <Card sx={{ maxWidth: 588, height: "100%", width: "100%" }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label='recipe'>
@@ -29,7 +29,14 @@ export const Comment = ({
         subheader={time}
       />
       <CardContent>
-        <Typography paragraph>{text}</Typography>
+        <Typography
+          sx={{
+            wordWrap: "break-word",
+          }}
+          paragraph
+        >
+          {text}
+        </Typography>
       </CardContent>
     </Card>
   );

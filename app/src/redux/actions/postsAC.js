@@ -5,6 +5,7 @@ import {
   SET_ALL_POSTS,
   DELETE_POST,
   GET_SINGLE_POST,
+  ADD_COMMENT,
 } from "../types/postsTypes";
 import { axiosInstance } from "../../config/axios";
 import {
@@ -65,6 +66,11 @@ export const deletePost = (postId) => ({
 
 export const getSinglePost = (post) => ({
   type: GET_SINGLE_POST,
+  payload: post,
+});
+
+export const addComment = (post) => ({
+  type: ADD_COMMENT,
   payload: post,
 });
 
@@ -153,4 +159,18 @@ export const queryGetSinglePost = (postId) => async (dispatch) => {
 
   dispatch(setAllPosts(postFromApi));
   dispatch(setRequestFulfilled("getSinglePost-Fulfilled"));
+};
+
+export const queryAddComment = (id, body) => async (dispatch) => {
+  dispatch(setRequestStarted("addComment-pending"));
+  let response;
+  try {
+    response = await axiosInstance.post(`posts/comments/${id}`, body);
+  } catch (error) {
+    dispatch(setRequestFailed(error.message));
+  }
+
+  const postFromApi = response.data;
+  dispatch(addComment(postFromApi));
+  dispatch(setRequestFulfilled("addComment-Fulfilled"));
 };

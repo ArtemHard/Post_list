@@ -11,7 +11,6 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +23,7 @@ import {
 } from "../../../../redux/actions/postsAC";
 import { DeletePostModal } from "../../DeletePostModal/DeletePostModal";
 import { Grid, Menu, MenuItem, Tooltip } from "@mui/material";
+import { CreateCommentForm } from "../components/CreateCommentForm";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -38,6 +38,8 @@ const ExpandMore = styled((props) => {
 
 const PostDetailCard = () => {
   const [expanded, setExpanded] = React.useState(false);
+  const [expandedCommentForm, setExpandedCommentForm] = React.useState(false);
+  const [showComBtnText, setShowComBtnText] = React.useState(false);
 
   const post = useSelector((store) => store.posts[0]);
   const person = useSelector((store) => store.person);
@@ -45,6 +47,16 @@ const PostDetailCard = () => {
   const updatedTime = useServerData(post.updated_at);
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  React.useEffect(() => {
+    expandedCommentForm
+      ? setShowComBtnText("Скрыть форму")
+      : setShowComBtnText("Оставить комментарий");
+  }, [expandedCommentForm]);
+
+  const handleExpandCommentForm = () => {
+    setExpandedCommentForm(!expandedCommentForm);
   };
 
   let settings;
@@ -189,7 +201,9 @@ const PostDetailCard = () => {
             />{" "}
             <span>{likesInfo?.amount}</span>
           </IconButton>
-          <IconButton>Оставить комментарий</IconButton>
+          <IconButton onClick={handleExpandCommentForm}>
+            {showComBtnText}
+          </IconButton>
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}
@@ -199,6 +213,11 @@ const PostDetailCard = () => {
             <ExpandMoreIcon />
           </ExpandMore>
         </CardActions>
+        <Collapse in={expandedCommentForm} timeout='auto' unmountOnExit>
+          <CardContent>
+            <CreateCommentForm id={post._id} />
+          </CardContent>
+        </Collapse>
         <Collapse in={expanded} timeout='auto' unmountOnExit>
           <CardContent>
             <Typography paragraph>{post.text}</Typography>

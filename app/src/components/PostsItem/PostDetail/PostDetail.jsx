@@ -15,7 +15,7 @@ export const PostDetail = () => {
 
   const reqStatus = useSelector((store) => store.requestStatus);
   const post = useSelector((store) => store.posts[0]);
-  const commentsLength = post.comments.length;
+  const commentsLength = post?.comments?.length;
   const pendingStatus = "getSinglePost-pending";
   useEffect(() => {
     dispatch(queryGetSinglePost(postId));
@@ -56,9 +56,9 @@ export const PostDetail = () => {
         />
       )}
       {showComments &&
-        post.comments.map((comment) => (
-          <Comment key={comment._id} {...comment} />
-        ))}
+        post.comments
+          .map((comment) => <Comment key={comment._id} {...comment} />)
+          .reverse()}
       <ButtonUp />
     </Grid>
   );
