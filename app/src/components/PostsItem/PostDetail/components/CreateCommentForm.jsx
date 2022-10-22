@@ -20,7 +20,6 @@ export const CreateCommentForm = ({ id }) => {
   function handleClick(e) {
     e.preventDefault();
     const formData = Object.fromEntries(new FormData(e.target).entries());
-    console.log(e.target);
     dispatch(queryAddComment(id, formData));
     e.target.reset();
   }

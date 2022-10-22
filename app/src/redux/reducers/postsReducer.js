@@ -5,6 +5,7 @@ import {
   DELETE_POST,
   GET_SINGLE_POST,
   ADD_COMMENT,
+  DELETE_COMMENT,
 } from "../types/postsTypes";
 
 const postsReducer = (state = [], action) => {

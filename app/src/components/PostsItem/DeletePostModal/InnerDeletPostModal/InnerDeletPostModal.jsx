@@ -5,7 +5,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Stack from "@mui/material/Stack";
 import { useDispatch, useSelector } from "react-redux";
-import { queryDeletePost } from "../../../../redux/actions/postsAC";
+import {
+  queryDeleteComment,
+  queryDeletePost,
+} from "../../../../redux/actions/postsAC";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -16,11 +19,14 @@ export const InnerDeletPostModal = (props) => {
 
   useEffect(() => {
     status === "deletePending" ? setLoading(true) : setLoading(false);
+    status === "deleteComment-pending" ? setLoading(true) : setLoading(false);
   }, [status]);
 
   const deletePostHandler = (e) => {
     e.preventDefault();
-    dispatch(queryDeletePost(props.postId));
+    if (props.commentId) {
+      dispatch(queryDeleteComment(props.postId, props.commentId));
+    } else dispatch(queryDeletePost(props.postId));
   };
   return (
     <div className={styles.wrapper}>

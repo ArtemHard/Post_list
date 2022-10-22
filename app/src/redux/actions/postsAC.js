@@ -174,3 +174,19 @@ export const queryAddComment = (id, body) => async (dispatch) => {
   dispatch(addComment(postFromApi));
   dispatch(setRequestFulfilled("addComment-Fulfilled"));
 };
+
+export const queryDeleteComment = (postId, commentId) => async (dispatch) => {
+  dispatch(setRequestStarted("deleteComment-pending"));
+  let response;
+  try {
+    response = await axiosInstance.delete(
+      `posts/comments/${postId}/${commentId}`
+    );
+  } catch (error) {
+    dispatch(setRequestFailed(error.message));
+  }
+
+  const postFromApi = response.data;
+  dispatch(addComment(postFromApi));
+  dispatch(setRequestFulfilled("deleteComment-Fulfilled"));
+};
