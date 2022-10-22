@@ -125,7 +125,7 @@ const NavBar = () => {
       dispatch(deleteUserToken());
     }
     if (e.target.innerText === "Профиль") {
-      navigate("/profile");
+      navigate(`/profile/${person._id}`);
     }
     setAnchorElUser(null);
   };

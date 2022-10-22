@@ -9,10 +9,10 @@ import { useServerData } from "../../hooks/useServerData";
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { queryDeleteComment } from "../../redux/actions/postsAC";
 import { DeletePostModal } from "../PostsItem/DeletePostModal/DeletePostModal";
+import { useNavigate } from "react-router-dom";
 
 export const Comment = ({
   _id,
@@ -23,7 +23,6 @@ export const Comment = ({
   updated_at,
 }) => {
   const time = useServerData(created_at);
-  const dispatch = useDispatch();
   const [deleteBtn, setDeleteBtn] = useState(false);
   const [modal, setModal] = useState(false);
   const user = useSelector((store) => store.person);
@@ -34,9 +33,7 @@ export const Comment = ({
     }
   }, [deleteBtn, author, user._id]);
 
-  // const deleteCommentClickHandler = () => {
-  //   dispatch(queryDeleteComment(post, _id));
-  // };
+  const navigate = useNavigate();
   return (
     <Card sx={{ maxWidth: 588, height: "100%", width: "100%" }}>
       <DeletePostModal
@@ -47,7 +44,11 @@ export const Comment = ({
       />
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label='recipe'>
+          <Avatar
+            sx={{ bgcolor: red[500], cursor: "pointer" }}
+            aria-label='recipe'
+            onClick={() => navigate(`/profile/${author}`)}
+          >
             R
           </Avatar>
         }
