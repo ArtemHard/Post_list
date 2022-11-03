@@ -21,7 +21,7 @@ export const ProfileList = () => {
     dispatch(loadPersonPosts(person._id));
   }, []);
 
-  location.pathname === "/profile"
+  location.pathname === "/profile/"
     ? (nextUrl = "/profile/myposts") &&
       (textBtn = `Количество постов: ${person.posts.length}`)
     : (nextUrl = "/profile") &&

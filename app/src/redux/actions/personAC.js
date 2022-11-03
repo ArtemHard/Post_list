@@ -125,3 +125,4 @@ export const changeAvatarQuery = (urlObject) => async (dispatch) => {
   console.log(response.data?.avatar);
   dispatch(changeAvatar(response.data?.avatar));
 };
+
