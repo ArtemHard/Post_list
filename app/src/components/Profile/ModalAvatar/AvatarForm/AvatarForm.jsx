@@ -6,7 +6,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useRef } from "react";
-import { changeAvatarQuery } from "../../../../redux/actions/personAC";
+import { changeAvatarQuery } from "../../../../redux/actions/personAC.ts";
 import CloseIcon from "@mui/icons-material/Close";
 
 export const AvatarForm = ({ avatarUrl }) => {

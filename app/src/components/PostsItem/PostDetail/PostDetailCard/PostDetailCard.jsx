@@ -20,7 +20,7 @@ import { useLikes } from "../../../../hooks/useLikes";
 import {
   queryAddLike,
   queryDeleteLike,
-} from "../../../../redux/actions/postsAC";
+} from "../../../../redux/actions/postsAC.ts";
 import { DeletePostModal } from "../../DeletePostModal/DeletePostModal";
 import { Grid, Menu, MenuItem, Tooltip } from "@mui/material";
 import { CreateCommentForm } from "../components/CreateCommentForm";

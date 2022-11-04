@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useThrottle } from "../../hooks/useThrottle";
 // import { useDebounce } from "../hooks/useDebounce";
 import PostsItem from "../PostsItem/PostsItem";
-import { loadAllPosts } from "../../redux/actions/postsAC";
+import { loadAllPosts } from "../../redux/actions/postsAC.ts";
 import Loader from "../Loader/Loader";
 import { ButtonUp } from "../generic/ButtonUp/ButtonUp";
 // import {useThrottle} from '@react-hook/throttle'

@@ -17,7 +17,7 @@ import { Grid, Menu, MenuItem, Tooltip } from "@mui/material";
 import { useServerData } from "../../hooks/useServerData";
 import { useTags } from "../../hooks/useTags";
 import { useLikes } from "../../hooks/useLikes";
-import { queryAddLike, queryDeleteLike } from "../../redux/actions/postsAC";
+import { queryAddLike, queryDeleteLike } from "../../redux/actions/postsAC.ts";
 import { useDispatch } from "react-redux";
 import { DeletePostModal } from "./DeletePostModal/DeletePostModal";
 import { Link } from "react-router-dom";

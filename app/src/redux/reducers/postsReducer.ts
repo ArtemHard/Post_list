@@ -1,3 +1,4 @@
+import { PostsType } from "../initState";
 import {
   CHANGE_LIKE_POST,
   ADD_NEW_POST,
@@ -5,10 +6,12 @@ import {
   DELETE_POST,
   GET_SINGLE_POST,
   ADD_COMMENT,
-  DELETE_COMMENT,
+  // DELETE_COMMENT,
 } from "../types/postsTypes";
 
-const postsReducer = (state = [], action) => {
+type StateType = Array<PostsType>
+
+const postsReducer = (state = [] as StateType, action: any): StateType => {
   switch (action.type) {
     case SET_ALL_POSTS:
       return action.payload;

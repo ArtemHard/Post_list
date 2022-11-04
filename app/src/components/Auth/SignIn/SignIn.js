@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { SignInQuery } from "../../../redux/actions/personAC";
+import { SignInQuery } from "../../../redux/actions/personAC.ts";
 
 const theme = createTheme();
 

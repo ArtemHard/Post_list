@@ -5,7 +5,7 @@ import { useState } from "react";
 import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
 import { FormControl, Grid } from "@mui/material";
-import { queryNewPost } from "../../redux/actions/postsAC";
+import { queryNewPost } from "../../redux/actions/postsAC.ts";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 

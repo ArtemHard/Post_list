@@ -13,19 +13,26 @@ import {
   setRequestFulfilled,
   setRequestStarted,
 } from "./requestStatusAC";
-import { deleteUserPost } from "./personAC";
+// @ts-ignore
+import { deleteUserPost } from "./personAC.ts";
+import { PostsType } from "../initState";
+import { AllPostsType, PostsACTypes } from "./types/postsACTypes";
 
-export const setAllPosts = (allPosts) => ({
+
+
+export const setAllPosts = (allPosts: AllPostsType) : PostsACTypes   => ({
   type: SET_ALL_POSTS,
   payload: allPosts,
 });
 
-export const changeLike = (post) => ({
+
+
+export const changeLike = (post: PostsType) : PostsACTypes => ({
   type: CHANGE_LIKE_POST,
   payload: post,
 });
 
-export const loadAllPosts = (searchValue) => async (dispatch) => {
+export const loadAllPosts = (searchValue: string) => async (dispatch: any) => {
   // const urlForFetch = searchValue ? `/search/?query=${searchValue}` : "/";
   // const response = await fetch(
   //   `https://api.react-learning.ru/posts${urlForFetch}`,
@@ -54,35 +61,35 @@ export const loadAllPosts = (searchValue) => async (dispatch) => {
   dispatch(setAllPosts(postsFromApi));
 };
 
-export const addNewPost = (allPosts) => ({
+
+
+export const addNewPost = (allPosts: PostsType) : PostsACTypes => ({
   type: ADD_NEW_POST,
   payload: allPosts,
 });
 
-export const deletePost = (postId) => ({
+
+
+export const deletePost = (postId: string): PostsACTypes => ({
   type: DELETE_POST,
   payload: postId,
 });
 
-export const getSinglePost = (post) => ({
+
+
+export const getSinglePost = (post: PostsType) : PostsACTypes => ({
   type: GET_SINGLE_POST,
   payload: post,
 });
 
-export const addComment = (post) => ({
+
+
+export const addComment = (post: PostsType) : PostsACTypes => ({
   type: ADD_COMMENT,
   payload: post,
 });
 
-export const queryNewPost = (post) => async (dispatch) => {
-  // const response = await fetch("https://api.react-learning.ru/posts", {
-  //   method: "POST",
-  //   headers: {
-  //     authorization: `Bearer ${API_TOKEN}`,
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: post,
-  // });
+export const queryNewPost = (post) => async (dispatch: any) => {
 
   dispatch(setRequestStarted());
 

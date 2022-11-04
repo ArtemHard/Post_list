@@ -2,7 +2,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { loadPersonPosts } from "../../../../redux/actions/personAC";
+import { loadPersonPosts } from "../../../../redux/actions/personAC.ts";
 import styles from "../../profile.module.css";
 
 export const ProfileList = () => {
