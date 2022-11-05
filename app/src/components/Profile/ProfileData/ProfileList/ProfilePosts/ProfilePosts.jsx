@@ -1,12 +1,15 @@
 import { Grid } from "@mui/material";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useContext } from "react";
+import { ProfileContext } from "../../../../contexts/profileContext";
 import { ButtonUp } from "../../../../generic/ButtonUp/ButtonUp";
 import PostsItem from "../../../../PostsItem/PostsItem";
 
 export const ProfilePosts = () => {
-  const post = useSelector((store) => store.person.posts);
-  const personId = useSelector((store) => store.person._id);
+  const {
+    person,
+  } = useContext(ProfileContext);
+  const post = person.posts
+  const personId = person._id
   return (
     <Grid container spacing={4} justifyContent='center'>
       {!post.length && <span>У вас нет постов</span>}

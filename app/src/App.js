@@ -44,7 +44,7 @@ function App() {
               </RequireAuth>
             }
           >
-            <Route path='myposts' element={<ProfilePosts />} />
+            <Route path='posts' element={<ProfilePosts />} />
           </Route>
           <Route path='/signin' element={<SignIn />} />
         </Routes>

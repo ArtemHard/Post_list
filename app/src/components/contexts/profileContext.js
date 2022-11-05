@@ -3,23 +3,25 @@ import { useSelector } from "react-redux";
 
 const ProfileContext = createContext();
 
-const ProfileProvider = ({ children }) => {
+const ProfileProvider = ({ children, userId }) => {
   const [btnActive, setBtnActive] = useState(true);
   const [btnNameAbout, setBtnNameAbout] = useState(true);
   const [modal, setModal] = useState(false);
+  
+  const personAuth = useSelector((store) => store.person);
+  const userPerson = useSelector((store) => store.user);
+  let person
 
-  const person = useSelector((store) => store.person);
+  userId === personAuth._id ? person = personAuth : person = userPerson
 
   const [newName, setNewName] = useState(person.name);
   const [newAbout, setNewAbout] = useState(person.about);
-
   const createObjUser = () => {
     const newObjUser = {
       name: newName,
       about: newAbout,
     };
 
-    // return JSON.stringify(newObjUser);
     return newObjUser;
   };
 
@@ -27,7 +29,6 @@ const ProfileProvider = ({ children }) => {
     setNewName(person.name);
     setNewAbout(person.about);
   };
-
   return (
     <ProfileContext.Provider
       value={{

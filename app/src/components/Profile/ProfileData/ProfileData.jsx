@@ -74,7 +74,7 @@ export const ProfileData = () => {
           disabled={btnNameAbout}
           id='outlined-disabled'
           label='Имя'
-          // defaultValue={person.name}
+          defaultValue={person.name}
           name='name'
           value={newName}
           onChange={changeName}
@@ -83,7 +83,7 @@ export const ProfileData = () => {
           disabled={btnNameAbout}
           id='outlined-disabled'
           label='Профессия'
-          // defaultValue={person.about}
+          defaultValue={person.about}
           name='About'
           value={newAbout}
           onChange={changeAbout}
@@ -102,7 +102,7 @@ export const ProfileData = () => {
           label='Почта'
           defaultValue={person.email}
         />
-        <ProfileList />
+        <ProfileList person={person}/>
       </Box>
     </Grid>
   );

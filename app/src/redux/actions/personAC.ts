@@ -1,4 +1,3 @@
-import { Dispatch } from "redux";
 import { axiosInstance } from "../../config/axios";
 import { PersonType, PostsType } from "../initState";
 // import { API_TOKEN } from "../../constants";

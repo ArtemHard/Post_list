@@ -162,8 +162,7 @@ export const queryGetSinglePost = (postId) => async (dispatch) => {
     return;
   }
 
-  const postFromApi = [response.data];
-
+  const postFromApi = [response.data]
   dispatch(setAllPosts(postFromApi));
   dispatch(setRequestFulfilled("getSinglePost-Fulfilled"));
 };

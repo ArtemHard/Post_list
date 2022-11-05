@@ -17,6 +17,7 @@ const initState = () => {
       // token: "",
       // posts: [],
     } as PersonType ,
+    user: {} as UserType
   };
 };
 
@@ -60,6 +61,14 @@ export type PersonType = {
       updatedAt: Date;
   }
 
-
+  export interface UserType {
+    name: string;
+    about: string;
+    avatar: string;
+    _id: string;
+    email: string;
+    __v: number;
+    posts?: [] | Array<PostsType> | null
+}
 
 export default initState;

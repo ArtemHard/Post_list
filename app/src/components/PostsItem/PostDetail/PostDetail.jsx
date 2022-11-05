@@ -15,6 +15,7 @@ export const PostDetail = () => {
 
   const reqStatus = useSelector((store) => store.requestStatus);
   const post = useSelector((store) => store.posts[0]);
+  console.log(post);
   const commentsLength = post?.comments?.length;
   const pendingStatus = "getSinglePost-pending";
   useEffect(() => {
@@ -37,6 +38,8 @@ export const PostDetail = () => {
   //   }
   // }, [reqStatus, showCommentBtn, commentsLength]);
 
+  console.log(post.comments);
+  
   return (
     <Grid
       container

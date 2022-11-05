@@ -34,6 +34,8 @@ export const Comment = ({
   }, [deleteBtn, author, user._id]);
 
   const navigate = useNavigate();
+
+  console.log(author);
   return (
     <Card sx={{ maxWidth: 588, height: "100%", width: "100%" }}>
       <DeletePostModal
@@ -47,12 +49,13 @@ export const Comment = ({
           <Avatar
             sx={{ bgcolor: red[500], cursor: "pointer" }}
             aria-label='recipe'
+            // src={author.avatar}
             onClick={() => navigate(`/profile/${author}`)}
           >
             R
           </Avatar>
         }
-        title='Здесь будет имя если будет запрос'
+        // title={author.name}
         subheader={time}
         action={
           deleteBtn && (

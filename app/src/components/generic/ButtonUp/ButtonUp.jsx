@@ -38,7 +38,6 @@ export const ButtonUp = () => {
           Прокрутка вверх
         </Button>
       )}
-      ;
     </div>
   );
 };
