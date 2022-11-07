@@ -99,20 +99,22 @@ export default function PostsItem({
       document.body.style.paddingRight = "0px";
     };
   }, [modal]);
-
+console.log('POST ITEM');
   return (
     <Grid item xs={6}>
       <DeletePostModal modal={modal} setModal={setModal} postId={_id} />
       <Card>
         <CardHeader
           avatar={
-            <Avatar
-              sx={{ bgcolor: red[500] }}
-              aria-label='recipe'
-              src={author.avatar}
-            >
-              {author.name.slice(0, 1)}
-            </Avatar>
+            <Link to={`/profile/${author._id}`}>
+              <Avatar
+                sx={{ bgcolor: red[500] }}
+                aria-label='recipe'
+                src={author.avatar}
+                >
+                {author.name.slice(0, 1)}
+              </Avatar>
+            </Link>
           }
           action={
             <Tooltip title={Boolean(anchorElUser) ? null : "Дополнительно"}>

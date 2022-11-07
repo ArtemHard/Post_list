@@ -24,6 +24,7 @@ import {
 import { DeletePostModal } from "../../DeletePostModal/DeletePostModal";
 import { Grid, Menu, MenuItem, Tooltip } from "@mui/material";
 import { CreateCommentForm } from "../components/CreateCommentForm";
+import { Link } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -43,7 +44,6 @@ const PostDetailCard = () => {
 
   const post = useSelector((store) => store.posts[0]);
   const person = useSelector((store) => store.person);
-
   const updatedTime = useServerData(post.updated_at);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -116,19 +116,21 @@ const PostDetailCard = () => {
       <Card sx={{ maxWidth: 690, height: "100%" }}>
         <CardHeader
           avatar={
-            <Avatar
-              sx={{ bgcolor: red[500] }}
-              aria-label='recipe'
-              src={post.author.avatar}
-            >
-              {post.author.name.slice(0, 1)}
-            </Avatar>
+            <Link to={`/profile/${post.author._id}`}>
+              <Avatar
+                sx={{ bgcolor: red[500] }}
+                aria-label="recipe"
+                src={post.author.avatar}
+              >
+                {post.author.name.slice(0, 1)}
+              </Avatar>
+            </Link>
           }
           action={
             settings && (
               <Tooltip title={Boolean(anchorElUser) ? null : "Дополнительно"}>
                 <IconButton
-                  aria-label='settings'
+                  aria-label="settings"
                   onClick={handleCloseOpenUserMenu}
                 >
                   <MoreVertIcon />
@@ -137,7 +139,7 @@ const PostDetailCard = () => {
                       pr: "0px",
                       mt: "34px",
                     }}
-                    id='menu-appbar'
+                    id="menu-appbar"
                     anchorEl={anchorElUser}
                     anchorOrigin={{
                       padding: "0px",
@@ -160,7 +162,7 @@ const PostDetailCard = () => {
                         <Typography
                           onClick={handleOpenSettings}
                           key={setting}
-                          textAlign='center'
+                          textAlign="center"
                         >
                           {setting}
                         </Typography>
@@ -175,13 +177,13 @@ const PostDetailCard = () => {
           subheader={updatedTime}
         />
         <CardMedia
-          component='img'
-          height='294'
+          component="img"
+          height="294"
           image={post.image}
           alt={post.title}
         />
         <CardContent>
-          <Typography variant='body2' color='text.secondary'>
+          <Typography variant="body2" color="text.secondary">
             {description}
           </Typography>
           <hr />
@@ -193,7 +195,7 @@ const PostDetailCard = () => {
             justifyContent: "space-between",
           }}
         >
-          <IconButton aria-label='add to favorites' onClick={likeClicHandler}>
+          <IconButton aria-label="add to favorites" onClick={likeClicHandler}>
             <FavoriteIcon
               sx={{
                 color: likesInfo?.color,
@@ -208,17 +210,17 @@ const PostDetailCard = () => {
             expand={expanded}
             onClick={handleExpandClick}
             aria-expanded={expanded}
-            aria-label='show more'
+            aria-label="show more"
           >
             <ExpandMoreIcon />
           </ExpandMore>
         </CardActions>
-        <Collapse in={expandedCommentForm} timeout='auto' unmountOnExit>
+        <Collapse in={expandedCommentForm} timeout="auto" unmountOnExit>
           <CardContent>
             <CreateCommentForm id={post._id} />
           </CardContent>
         </Collapse>
-        <Collapse in={expanded} timeout='auto' unmountOnExit>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>{post.text}</Typography>
           </CardContent>

@@ -35,7 +35,10 @@ export const Comment = ({
 
   const navigate = useNavigate();
 
-  console.log(author);
+  useEffect(() => {
+    
+  })
+
   return (
     <Card sx={{ maxWidth: 588, height: "100%", width: "100%" }}>
       <DeletePostModal

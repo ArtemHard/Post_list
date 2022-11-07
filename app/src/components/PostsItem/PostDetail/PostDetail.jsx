@@ -13,14 +13,16 @@ export const PostDetail = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
 
-  const reqStatus = useSelector((store) => store.requestStatus);
-  const post = useSelector((store) => store.posts[0]);
-  console.log(post);
-  const commentsLength = post?.comments?.length;
-  const pendingStatus = "getSinglePost-pending";
   useEffect(() => {
     dispatch(queryGetSinglePost(postId));
-  }, []);
+  }, [postId, dispatch]);
+
+  const reqStatus = useSelector((store) => store.requestStatus);
+  const post = useSelector((store) => store.posts[0]);
+  const commentsLength = post.comments.length;
+  const pendingStatus = "getSinglePost-pending";
+
+  console.log(post);
 
   const [showCommentBtn, setShowCommentBtn] = useState(false);
   const [showComments, setShowComments] = useState(false);
@@ -32,24 +34,16 @@ export const PostDetail = () => {
     return () => setShowCommentBtn(false);
   }, [showCommentBtn, commentsLength, reqStatus]);
 
-  // useEffect(() => {
-  //   if (reqStatus !== pendingStatus && !showCommentBtn && commentsLength) {
-  //     setShowComments(true);
-  //   }
-  // }, [reqStatus, showCommentBtn, commentsLength]);
-
-  console.log(post.comments);
-  
   return (
     <Grid
       container
-      justifyContent='center'
-      direction='column'
-      alignItems='center'
-      gap='10px'
+      justifyContent="center"
+      direction="column"
+      alignItems="center"
+      gap="10px"
     >
       {reqStatus === pendingStatus && <Loader />}
-      {reqStatus !== pendingStatus && <PostDetailCard />}
+      {reqStatus !== pendingStatus && <PostDetailCard {...post} />}
       {showCommentBtn && (
         <ButtonComments
           reqStatus={reqStatus}

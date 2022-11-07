@@ -161,7 +161,7 @@ export const queryGetSinglePost = (postId) => async (dispatch) => {
     dispatch(setRequestFailed(error.message));
     return;
   }
-
+  
   const postFromApi = [response.data]
   dispatch(setAllPosts(postFromApi));
   dispatch(setRequestFulfilled("getSinglePost-Fulfilled"));

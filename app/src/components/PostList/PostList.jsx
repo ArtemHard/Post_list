@@ -29,9 +29,6 @@ const PostsList = () => {
   return (
     <Grid container spacing={4} justifyContent='center'>
       {reqStatus === "pending" && <Loader />}
-      {/* {reqStatus !== "pending" && reqStatus !== "fulfilled" && (
-        <b className={{ top: "300px" }}>{reqStatus}</b>
-      )} */}
       {reqStatus !== "pending" &&
         posts
           .map((post) => {

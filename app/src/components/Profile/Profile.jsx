@@ -27,7 +27,7 @@ const Profile = () => {
       <h1 className={styles.title}>Профиль</h1>
       <ProfileData />
       {userOrGuest && <ButtonEdit />}
-      <Outlet />
+      <Outlet/>
     </ProfileProvider>
   );
 };

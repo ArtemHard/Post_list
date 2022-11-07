@@ -1,5 +1,7 @@
 import { Box, Grid, TextField } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { ProfileContext } from "../../contexts/profileContext";
 import ModalAvatar from "../ModalAvatar/ModalAvatar";
 import styles from "../profile.module.css";
@@ -31,7 +33,17 @@ export const ProfileData = () => {
   };
 
   const text = "Нажмите\nдля \nзамены";
+  // const status = useSelector(store => store.requestStatus)
+  // const [person, setPerson] = useState(personProps)
+  // useEffect(() => {
+  //   setPerson(personProps)
+  // }, [personProps])
 
+  // console.log(person.name);
+  // console.log(person.avatar);
+  // console.log(person.about);
+  // console.log(person.email);
+  // console.log(newName);
   return (
     <Grid container spacing={3} justifyContent='center'>
       {
@@ -74,7 +86,6 @@ export const ProfileData = () => {
           disabled={btnNameAbout}
           id='outlined-disabled'
           label='Имя'
-          defaultValue={person.name}
           name='name'
           value={newName}
           onChange={changeName}
@@ -83,24 +94,21 @@ export const ProfileData = () => {
           disabled={btnNameAbout}
           id='outlined-disabled'
           label='Профессия'
-          defaultValue={person.about}
           name='About'
           value={newAbout}
           onChange={changeAbout}
         />
         <TextField
-          // disabled={btnActive}
           disabled
           id='outlined-disabled'
           label='avatar'
-          defaultValue={person.avatar}
+          value={person.avatar}
         />
         <TextField
-          // disabled={btnActive}
           disabled
           id='outlined-disabled'
           label='Почта'
-          defaultValue={person.email}
+          value={person.email}
         />
         <ProfileList person={person}/>
       </Box>

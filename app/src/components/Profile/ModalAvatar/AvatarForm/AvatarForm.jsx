@@ -27,6 +27,7 @@ export const AvatarForm = ({ avatarUrl }) => {
       avatar: formData.url,
     };
     dispatch(changeAvatarQuery(dataForServer));
+    e.currentTarget.reset()
   };
   const escHandler = (e) => {
     console.log(e.currentTarget.id);

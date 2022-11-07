@@ -20,15 +20,19 @@ export const ProfileList = ({person}) => {
   useEffect(() => {
     if (person._id === AuthPerson._id) {
     dispatch(loadPersonPosts(person._id));
-    
+  
     }
   }, [person._id, AuthPerson._id, dispatch]);
 
+ 
   location.pathname === `/profile/${person._id}`
-    ? (nextUrl = `/profile/${person._id}/posts`) &&
-      (textBtn = `Количество постов: ${person.posts.length}`)
-    : (nextUrl = `/profile/${person._id}`) &&
-      (textBtn = `Скрыть посты (${person.posts.length})`);
+    ? 
+    (nextUrl = `/profile/${person._id}/posts`) &&
+      (textBtn = `Количество постов: ${person?.posts?.length}`)
+    : 
+    (nextUrl = `/profile/${person._id}`) 
+      &&
+      (textBtn = `Скрыть посты (${person?.posts?.length})`);
   
 
   useEffect(() => {

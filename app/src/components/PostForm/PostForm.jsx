@@ -74,8 +74,8 @@ const PostForm = () => {
       >
         <FormControl>
           <TextField
-            error={errors.title}
-            helperText={errors.title}
+            error={errors?.title}
+            helperText={errors?.title}
             id='outlined-basic'
             label='Title'
             variant='outlined'
@@ -84,8 +84,8 @@ const PostForm = () => {
           />
         </FormControl>
         <TextField
-          error={errors.text}
-          helperText={errors.text}
+          error={errors?.text}
+          helperText={errors?.text}
           id='outlined-basic'
           label='Text'
           variant='outlined'
@@ -93,8 +93,8 @@ const PostForm = () => {
           onChange={(e) => setText(e.target.value)}
         />
         <TextField
-          error={errors.image}
-          helperText={errors.image}
+          error={errors?.image}
+          helperText={errors?.image}
           id='outlined-basic'
           label='Image'
           variant='outlined'
@@ -114,7 +114,7 @@ const PostForm = () => {
           size='large'
           disabled={disabled}
         >
-          Create Post
+          Создать пост
         </Button>
       </Box>
     </Grid>
