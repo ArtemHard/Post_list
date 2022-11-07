@@ -44,6 +44,10 @@ export default function PostsItem({
   personId,
   _id,
 }) {
+
+
+
+
   const [expanded, setExpanded] = React.useState(false);
   const updatedTime = useServerData(updated_at);
   const handleExpandClick = () => {

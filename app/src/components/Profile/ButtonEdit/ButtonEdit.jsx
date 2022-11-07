@@ -8,7 +8,7 @@ import { ProfileContext } from "../../contexts/profileContext";
 import { useDispatch, useSelector } from "react-redux";
 import { changeUserNameAboutQuery } from "../../../redux/actions/personAC.ts";
 import { useEffect } from "react";
-import { setStatusEmpty } from "../../../redux/actions/requestStatusAC";
+import { setStatusEmpty } from "../../../redux/actions/requestStatusAC.ts";
 
 const ButtonEdit = () => {
   const {

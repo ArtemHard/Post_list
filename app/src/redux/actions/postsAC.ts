@@ -12,7 +12,8 @@ import {
   setRequestFailed,
   setRequestFulfilled,
   setRequestStarted,
-} from "./requestStatusAC";
+  // @ts-ignore
+} from "./requestStatusAC.ts";
 // @ts-ignore
 import { deleteUserPost } from "./personAC.ts";
 import { PostsType } from "../initState";

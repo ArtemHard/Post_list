@@ -13,7 +13,8 @@ import {
   setRequestFailed,
   setRequestFulfilled,
   setRequestStarted,
-} from "./requestStatusAC";
+  // @ts-ignore
+} from "./requestStatusAC.ts";
 import { PersonACType } from "./types/personACTypes";
 
 

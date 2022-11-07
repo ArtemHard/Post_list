@@ -15,14 +15,13 @@ export const PostDetail = () => {
 
   useEffect(() => {
     dispatch(queryGetSinglePost(postId));
-  }, [postId, dispatch]);
+  }, [dispatch, postId]);
 
   const reqStatus = useSelector((store) => store.requestStatus);
   const post = useSelector((store) => store.posts[0]);
   const commentsLength = post.comments.length;
   const pendingStatus = "getSinglePost-pending";
 
-  console.log(post);
 
   const [showCommentBtn, setShowCommentBtn] = useState(false);
   const [showComments, setShowComments] = useState(false);

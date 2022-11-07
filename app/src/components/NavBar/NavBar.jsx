@@ -17,7 +17,7 @@ import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchValue } from "../../redux/actions/searchAC";
+import { setSearchValue } from "../../redux/actions/searchAC.ts";
 import { deleteUserToken } from "../../redux/actions/personAC.ts";
 import logo from "./img/svgLogo.svg";
 

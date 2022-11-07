@@ -1,7 +1,8 @@
 import { axiosInstance } from "../../config/axios";
 import { UserType } from "../initState";
 import { GET_USER_INFO } from "../types/personTypes";
-import { setRequestFailed, setRequestFulfilled, setRequestStarted } from "./requestStatusAC";
+// @ts-ignore
+import { setRequestFailed, setRequestFulfilled, setRequestStarted } from "./requestStatusAC.ts";
 
 type GetUserInfoActionType = {
     type: typeof GET_USER_INFO
