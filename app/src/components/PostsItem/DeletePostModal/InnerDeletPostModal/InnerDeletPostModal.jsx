@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   queryDeleteComment,
   queryDeletePost,
-} from "../../../../redux/actions/postsAC";
+} from "../../../../redux/actions/postsAC.ts";
 import { useState } from "react";
 import { useEffect } from "react";
 

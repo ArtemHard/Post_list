@@ -5,9 +5,9 @@ import App from "./App";
 import rootReducer from "./redux/reducers/rootReducer";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "@redux-devtools/extension";
-import initState from "./redux/initState";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
+import initState from "./redux/initState.ts";
 
 const store = createStore(
   rootReducer,

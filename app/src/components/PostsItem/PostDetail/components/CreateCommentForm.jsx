@@ -5,7 +5,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import SendIcon from "@mui/icons-material/Send";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { queryAddComment } from "../../../../redux/actions/postsAC";
+import { queryAddComment } from "../../../../redux/actions/postsAC.ts";
 
 export const CreateCommentForm = ({ id }) => {
   const status = useSelector((store) => store.requestStatus);

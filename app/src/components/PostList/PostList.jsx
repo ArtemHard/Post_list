@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useThrottle } from "../../hooks/useThrottle";
 // import { useDebounce } from "../hooks/useDebounce";
 import PostsItem from "../PostsItem/PostsItem";
-import { loadAllPosts } from "../../redux/actions/postsAC";
+import { loadAllPosts } from "../../redux/actions/postsAC.ts";
 import Loader from "../Loader/Loader";
 import { ButtonUp } from "../generic/ButtonUp/ButtonUp";
 // import {useThrottle} from '@react-hook/throttle'
@@ -29,9 +29,6 @@ const PostsList = () => {
   return (
     <Grid container spacing={4} justifyContent='center'>
       {reqStatus === "pending" && <Loader />}
-      {/* {reqStatus !== "pending" && reqStatus !== "fulfilled" && (
-        <b className={{ top: "300px" }}>{reqStatus}</b>
-      )} */}
       {reqStatus !== "pending" &&
         posts
           .map((post) => {

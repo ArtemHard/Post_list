@@ -2,10 +2,10 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { loadPersonPosts } from "../../../../redux/actions/personAC";
+import { loadPersonPosts } from "../../../../redux/actions/personAC.ts";
 import styles from "../../profile.module.css";
 
-export const ProfileList = () => {
+export const ProfileList = ({person}) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -14,18 +14,26 @@ export const ProfileList = () => {
   let nextUrl;
   let textBtn;
 
-  const person = useSelector((store) => store.person);
+  const AuthPerson = useSelector((store) => store.person);
   const status = useSelector((store) => store.requestStatus);
 
   useEffect(() => {
+    if (person._id === AuthPerson._id) {
     dispatch(loadPersonPosts(person._id));
-  }, []);
+  
+    }
+  }, [person._id, AuthPerson._id, dispatch]);
 
-  location.pathname === "/profile"
-    ? (nextUrl = "/profile/myposts") &&
-      (textBtn = `Количество постов: ${person.posts.length}`)
-    : (nextUrl = "/profile") &&
-      (textBtn = `Скрыть посты (${person.posts.length})`);
+ 
+  location.pathname === `/profile/${person._id}`
+    ? 
+    (nextUrl = `/profile/${person._id}/posts`) &&
+      (textBtn = `Количество постов: ${person?.posts?.length}`)
+    : 
+    (nextUrl = `/profile/${person._id}`) 
+      &&
+      (textBtn = `Скрыть посты (${person?.posts?.length})`);
+  
 
   useEffect(() => {
     status === "pending" ? setLoading(true) : setLoading(false);

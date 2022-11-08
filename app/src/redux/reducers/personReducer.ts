@@ -1,3 +1,4 @@
+import { PersonType } from "../initState";
 import {
   ADD_USER_POSTS,
   CHANGE_AVATAR,
@@ -7,7 +8,7 @@ import {
   SIGN_OUT,
 } from "../types/personTypes";
 
-export const personReducer = (state = {}, action) => {
+export const personReducer = (state = {} as PersonType, action: any): PersonType => {
   switch (action.type) {
     case SIGN_IN:
       return {

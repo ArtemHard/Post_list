@@ -1,4 +1,5 @@
 import { axiosInstance } from "../../config/axios";
+import { PersonType, PostsType } from "../initState";
 // import { API_TOKEN } from "../../constants";
 import {
   ADD_USER_POSTS,
@@ -12,14 +13,19 @@ import {
   setRequestFailed,
   setRequestFulfilled,
   setRequestStarted,
-} from "./requestStatusAC";
+  // @ts-ignore
+} from "./requestStatusAC.ts";
+import { PersonACType } from "./types/personACTypes";
 
-export const SignIn = (person) => ({
+
+export const SignIn = (person: PersonType): PersonACType => ({
   type: SIGN_IN,
   payload: person,
 });
 
-export const SignOut = () => ({
+
+
+export const SignOut = (): PersonACType => ({
   type: SIGN_OUT,
   payload: {
     token: "",
@@ -31,24 +37,32 @@ export const deleteUserToken = () => (dispatch) => {
   dispatch(SignOut());
 };
 
-export const SetChangeUserNameAbout = (newData) => ({
+
+
+export const SetChangeUserNameAbout = (newData: string): PersonACType => ({
   type: CHANGE_USER_NAME_ABOUT,
   payload: newData,
 });
 
-export const addUserPosts = (userPosts) => ({
+
+
+export const addUserPosts = (userPosts: Array<PostsType>) : PersonACType => ({
   type: ADD_USER_POSTS,
   payload: {
     posts: userPosts,
   },
 });
 
-export const deleteUserPost = (postId) => ({
+
+
+export const deleteUserPost = (postId: string): PersonACType => ({
   type: DELETE_USER_POST,
   payload: postId,
 });
 
-export const changeAvatar = (url) => ({
+
+
+export const changeAvatar = (url:string) : PersonACType => ({
   type: CHANGE_AVATAR,
   payload: {
     avatar: url,
@@ -56,7 +70,7 @@ export const changeAvatar = (url) => ({
 });
 
 export const SignInQuery =
-  ({ email, password, cb }) =>
+  ({ email, password , cb }) =>
   async (dispatch) => {
     const response = await axiosInstance.post("signin", {
       email,
@@ -75,7 +89,7 @@ export const SignInQuery =
     typeof cb === "function" && cb();
   };
 
-export const loadPersonPosts = (personId) => async (dispatch) => {
+export const loadPersonPosts = (personId: string) => async (dispatch) => {
   dispatch(setRequestStarted());
 
   let response;
@@ -125,3 +139,4 @@ export const changeAvatarQuery = (urlObject) => async (dispatch) => {
   console.log(response.data?.avatar);
   dispatch(changeAvatar(response.data?.avatar));
 };
+

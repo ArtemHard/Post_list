@@ -14,10 +14,10 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Grid, Menu, MenuItem, Tooltip } from "@mui/material";
-import { useServerData } from "../../hooks/useServerData";
+import { useServerData } from "../../hooks/useServerData.ts";
 import { useTags } from "../../hooks/useTags";
 import { useLikes } from "../../hooks/useLikes";
-import { queryAddLike, queryDeleteLike } from "../../redux/actions/postsAC";
+import { queryAddLike, queryDeleteLike } from "../../redux/actions/postsAC.ts";
 import { useDispatch } from "react-redux";
 import { DeletePostModal } from "./DeletePostModal/DeletePostModal";
 import { Link } from "react-router-dom";
@@ -44,6 +44,10 @@ export default function PostsItem({
   personId,
   _id,
 }) {
+
+
+
+
   const [expanded, setExpanded] = React.useState(false);
   const updatedTime = useServerData(updated_at);
   const handleExpandClick = () => {
@@ -99,20 +103,22 @@ export default function PostsItem({
       document.body.style.paddingRight = "0px";
     };
   }, [modal]);
-
+console.log('POST ITEM');
   return (
     <Grid item xs={6}>
       <DeletePostModal modal={modal} setModal={setModal} postId={_id} />
       <Card>
         <CardHeader
           avatar={
-            <Avatar
-              sx={{ bgcolor: red[500] }}
-              aria-label='recipe'
-              src={author.avatar}
-            >
-              {author.name.slice(0, 1)}
-            </Avatar>
+            <Link to={`/profile/${author._id}`}>
+              <Avatar
+                sx={{ bgcolor: red[500] }}
+                aria-label='recipe'
+                src={author.avatar}
+                >
+                {author.name.slice(0, 1)}
+              </Avatar>
+            </Link>
           }
           action={
             <Tooltip title={Boolean(anchorElUser) ? null : "Дополнительно"}>

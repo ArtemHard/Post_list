@@ -1,6 +1,6 @@
 import "./App.css";
 import Container from "@mui/material/Container";
-import NavBar from "./components/NavBar/NavBar";
+import NavBar from "./components/NavBar/NavBar.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./components/Main/Main";
 import PostForm from "./components/PostForm/PostForm";
@@ -44,7 +44,7 @@ function App() {
               </RequireAuth>
             }
           >
-            <Route path='myposts' element={<ProfilePosts />} />
+            <Route path='posts' element={<ProfilePosts />} />
           </Route>
           <Route path='/signin' element={<SignIn />} />
         </Routes>
