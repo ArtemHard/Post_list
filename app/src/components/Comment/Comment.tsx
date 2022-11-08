@@ -5,7 +5,8 @@ import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import { useServerData } from "../../hooks/useServerData";
+//@ts-ignore
+import { useServerData } from "../../hooks/useServerData.ts";
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
@@ -13,8 +14,18 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { DeletePostModal } from "../PostsItem/DeletePostModal/DeletePostModal";
 import { useNavigate } from "react-router-dom";
+import { UserType } from "../../redux/initState";
 
-export const Comment = ({
+type PropsType = {
+  _id: string
+  text: string
+  author: string
+  post: string
+  created_at: string
+  updated_at: string
+}
+
+export const Comment : React.FC<PropsType>= ({
   _id,
   text,
   author,
@@ -22,10 +33,10 @@ export const Comment = ({
   created_at,
   updated_at,
 }) => {
-  const time = useServerData(created_at);
+  const time: string = useServerData(created_at);
   const [deleteBtn, setDeleteBtn] = useState(false);
   const [modal, setModal] = useState(false);
-  const user = useSelector((store) => store.person);
+  const user: UserType = useSelector((store: any) => store.person);
 
   useEffect(() => {
     if (author === user._id) {
@@ -35,9 +46,6 @@ export const Comment = ({
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    
-  })
 
   return (
     <Card sx={{ maxWidth: 588, height: "100%", width: "100%" }}>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { queryGetSinglePost } from "../../../redux/actions/postsAC.ts";
-import Comment from "../../Comment/Comment";
+import Comment from "../../Comment/Comment.tsx";
 import { ButtonUp } from "../../generic/ButtonUp/ButtonUp";
 import Loader from "../../Loader/Loader";
 import { ButtonComments } from "./components/ButtonComments";

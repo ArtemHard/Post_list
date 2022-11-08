@@ -14,7 +14,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Grid, Menu, MenuItem, Tooltip } from "@mui/material";
-import { useServerData } from "../../hooks/useServerData";
+import { useServerData } from "../../hooks/useServerData.ts";
 import { useTags } from "../../hooks/useTags";
 import { useLikes } from "../../hooks/useLikes";
 import { queryAddLike, queryDeleteLike } from "../../redux/actions/postsAC.ts";

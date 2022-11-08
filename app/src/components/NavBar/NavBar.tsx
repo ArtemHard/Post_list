@@ -17,9 +17,12 @@ import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch, useSelector } from "react-redux";
+// @ts-ignore
 import { setSearchValue } from "../../redux/actions/searchAC.ts";
+// @ts-ignore
 import { deleteUserToken } from "../../redux/actions/personAC.ts";
 import logo from "./img/svgLogo.svg";
+import { PersonType } from "../../redux/initState";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -61,7 +64,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const pages = [
+type pagesPageType = {
+  title: "Главная" | "Лента" | "Создать пост"
+  path: "/" | "/posts" | "/postform"
+}
+
+const pages: Array<pagesPageType> = [
   {
     title: "Главная",
     path: "/",
@@ -74,29 +82,31 @@ const pages = [
     title: "Создать пост",
     path: "/postform",
   },
-];
-let settings = ["Профиль", "Войти", "Регистрация", "Выход"];
+]
 
-const NavBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+type settingStringType = "Профиль" | "Войти" | "Регистрация" | "Выход"
+let settings: Array<settingStringType> = ["Профиль", "Войти", "Регистрация", "Выход"];
 
-  const person = useSelector((store) => store.person);
+const NavBar : React.FC = () => {
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+  const person: PersonType = useSelector ((store: any) => store.person)
   person.token
     ? (settings = ["Профиль", "Выход"])
     : (settings = ["Войти", "Регистрация"]);
 
-  let hrefAvatar;
+  let hrefAvatar: string;
   person.token && person.avatar
     ? (hrefAvatar = person.avatar)
     : (hrefAvatar = "/static/images/avatar/2.jpg");
 
   const navigate = useNavigate();
 
-  const handleOpenNavMenu = (event) => {
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
 
@@ -104,7 +114,8 @@ const NavBar = () => {
     setAnchorElNav(null);
   };
 
-  const handleOpenSettings = (e) => {
+  const handleOpenSettings = (e: React.MouseEvent<HTMLElement>) => {
+    // React.FormEvent<HTMLInputElement>
     // e.preventDefault();
     switch (e.currentTarget.innerText) {
       case "Войти":
@@ -120,19 +131,18 @@ const NavBar = () => {
     }
   };
 
-  const handleCloseUserMenu = (e) => {
-    if (e.target.innerText === "Выход") {
+  const handleCloseUserMenu = (e: React.MouseEvent<HTMLElement>) => {
+    if (e.currentTarget.innerText === "Выход") {
       dispatch(deleteUserToken());
     }
-    if (e.target.innerText === "Профиль") {
+    if (e.currentTarget.innerText === "Профиль") {
       navigate(`/profile/${person._id}`);
     }
     setAnchorElUser(null);
   };
-  const dispatch = useDispatch();
+  const dispatch : any = useDispatch();
   const searchHandler = (e) => {
     dispatch(setSearchValue(e.target.value.trim()));
-    // dispatch(setSearchValue(searchText));
   };
 
   return (
