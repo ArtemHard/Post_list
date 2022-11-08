@@ -9,4 +9,5 @@
 - routers
 - redux
 
+Gif с сайта (подождите загрузки):
 ![](./doc/IntroduceAnimation.gif)
