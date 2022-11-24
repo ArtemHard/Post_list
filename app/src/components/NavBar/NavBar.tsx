@@ -21,8 +21,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../../redux/actions/searchAC.ts";
 // @ts-ignore
 import { deleteUserToken } from "../../redux/actions/personAC.ts";
+// @ts-ignore
 import logo from "./img/svgLogo.svg";
 import { PersonType } from "../../redux/initState";
+import { AppStateType } from "../../redux/reducers/rootReducer";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -91,7 +93,7 @@ const NavBar : React.FC = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-  const person: PersonType = useSelector ((store: any) => store.person)
+  const person: PersonType = useSelector ((store: AppStateType) => store.person)
   person.token
     ? (settings = ["Профиль", "Выход"])
     : (settings = ["Войти", "Регистрация"]);

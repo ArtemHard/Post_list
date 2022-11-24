@@ -1,4 +1,4 @@
-import { PersonType, PostsType } from "../../initState";
+import { Author, PersonType, PostsType } from "../../initState";
 import {
   ADD_USER_POSTS,
   CHANGE_AVATAR,
@@ -21,7 +21,7 @@ type SignOutActionType = {
 };
 type SetChangeUserNameAboutActionType = {
   type: typeof CHANGE_USER_NAME_ABOUT;
-  payload: string;
+  payload: Author;
 };
 type addUserPostsActionType = {
   type: typeof ADD_USER_POSTS;
@@ -47,3 +47,5 @@ export type PersonACType =
   | addUserPostsActionType
   | deleteUserPostActionType
   | changeAvatarActionType
+
+

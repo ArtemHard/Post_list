@@ -36,7 +36,7 @@ export type PersonType = {
 
 
 
-  export interface Author {
+   export interface Author {
       name: string;
       about: string;
       avatar: string;

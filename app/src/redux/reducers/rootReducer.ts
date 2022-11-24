@@ -1,9 +1,15 @@
 import { combineReducers } from "redux";
+//@ts-ignore
 import { personReducer } from "./personReducer.ts";
-import { requestStatusReducer } from "./requestStatusReducer";
-import { searchReducer } from "./searchReducer";
+//@ts-ignore
+import postsReducer from "./postsReducer.ts";
+//@ts-ignore
+import { requestStatusReducer } from "./requestStatusReducer.ts";
+//@ts-ignore
+import { searchReducer } from "./searchReducer.ts";
+//@ts-ignore
 import { userReducer } from "./userReducer.ts";
-const { default: postsReducer } = require("./postsReducer.ts");
+
 
 const rootReducer = combineReducers({
   posts: postsReducer,
@@ -14,3 +20,9 @@ const rootReducer = combineReducers({
 });
 
 export default rootReducer;
+
+export type AppStateType = ReturnType<typeof rootReducer>
+
+// let state : AppStateType
+// state.person.
+

@@ -1,3 +1,4 @@
+import { PostsACTypes } from "../actions/types/postsACTypes";
 import { PostsType } from "../initState";
 import {
   CHANGE_LIKE_POST,
@@ -9,9 +10,9 @@ import {
   // DELETE_COMMENT,
 } from "../types/postsTypes";
 
-type StateType = Array<PostsType>
+type StateType = Array<PostsType> 
 
-const postsReducer = (state = [] as StateType, action: any): StateType => {
+const postsReducer = (state = [] as StateType, action: PostsACTypes): StateType => {
   switch (action.type) {
     case SET_ALL_POSTS:
       return action.payload;
@@ -34,7 +35,7 @@ const postsReducer = (state = [] as StateType, action: any): StateType => {
       return newState;
 
     case GET_SINGLE_POST:
-      return action.payload;
+      return [action.payload]
 
     case ADD_COMMENT:
       for (let index = 0; index < state.length; index++) {

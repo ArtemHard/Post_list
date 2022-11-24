@@ -1,5 +1,5 @@
 import { axiosInstance } from "../../config/axios";
-import { PersonType, PostsType } from "../initState";
+import { Author, PersonType, PostsType } from "../initState";
 // import { API_TOKEN } from "../../constants";
 import {
   ADD_USER_POSTS,
@@ -39,7 +39,7 @@ export const deleteUserToken = () => (dispatch) => {
 
 
 
-export const SetChangeUserNameAbout = (newData: string): PersonACType => ({
+export const SetChangeUserNameAbout = (newData: Author): PersonACType => ({
   type: CHANGE_USER_NAME_ABOUT,
   payload: newData,
 });
