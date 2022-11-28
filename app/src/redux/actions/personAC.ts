@@ -1,5 +1,7 @@
+import { Dispatch } from "redux";
 import { axiosInstance } from "../../config/axios";
-import { Author, PersonType, PostsType } from "../initState";
+import { Author, initStateType, PersonType, PostsType } from "../initState";
+import { ThunkAction } from 'redux-thunk'
 // import { API_TOKEN } from "../../constants";
 import {
   ADD_USER_POSTS,
@@ -17,6 +19,7 @@ import {
 } from "./requestStatusAC.ts";
 import { PersonACType } from "./types/personACTypes";
 
+type ThunkType = ThunkAction<Promise<void>, initStateType, unknown, PersonACType> 
 
 export const SignIn = (person: PersonType): PersonACType => ({
   type: SIGN_IN,
@@ -32,7 +35,7 @@ export const SignOut = (): PersonACType => ({
   },
 });
 
-export const deleteUserToken = () => (dispatch) => {
+export const deleteUserToken = () => (dispatch: DispatchType) => {
   localStorage.removeItem("token");
   dispatch(SignOut());
 };
@@ -69,9 +72,12 @@ export const changeAvatar = (url:string) : PersonACType => ({
   },
 });
 
-export const SignInQuery =
-  ({ email, password , cb }) =>
-  async (dispatch) => {
+type SignInQueryDataType = {
+  email: string
+  password: string
+  cb: any
+}
+export const SignInQuery = ({ email, password , cb } : SignInQueryDataType) : ThunkType =>  async (dispatch: DispatchType) => {
     const response = await axiosInstance.post("signin", {
       email,
       password,
@@ -89,7 +95,7 @@ export const SignInQuery =
     typeof cb === "function" && cb();
   };
 
-export const loadPersonPosts = (personId: string) => async (dispatch) => {
+export const loadPersonPosts = (personId: string) : ThunkType => async (dispatch: DispatchType) => {
   dispatch(setRequestStarted());
 
   let response;
@@ -100,7 +106,8 @@ export const loadPersonPosts = (personId: string) => async (dispatch) => {
     return;
   }
 
-  const postsFromApi = response.data;
+  type postsFromApiType = [] | Array<PostsType>
+  const postsFromApi: postsFromApiType = response.data;
 
   const postsUser = postsFromApi.filter((post) => post.author._id === personId);
   dispatch(setRequestFulfilled());
@@ -108,9 +115,8 @@ export const loadPersonPosts = (personId: string) => async (dispatch) => {
   // dispatch(setAllPosts(postsFromApi));
 };
 
-export const changeUserNameAboutQuery = (newPerson) => async (dispatch) => {
+export const changeUserNameAboutQuery = (newPerson: string): ThunkType => async (dispatch: DispatchType) => {
   dispatch(setRequestStarted());
-
   let response;
 
   try {
@@ -119,14 +125,21 @@ export const changeUserNameAboutQuery = (newPerson) => async (dispatch) => {
     dispatch(setRequestFailed(error.message));
     return;
   }
-  const newDataUserFromApi = response.data;
+  const newDataUserFromApi: Author = response.data;
   dispatch(setRequestFulfilled());
   dispatch(SetChangeUserNameAbout(newDataUserFromApi));
 };
 
-export const changeAvatarQuery = (urlObject) => async (dispatch) => {
+
+type UrlObjectType = {
+  avatar: string
+}
+type DispatchType = Dispatch<PersonACType>
+
+export const changeAvatarQuery = (urlObject: UrlObjectType)
+: ThunkType=> async (dispatch: DispatchType) => {
   dispatch(setRequestStarted());
-  console.log(urlObject);
+  
   let response;
 
   try {
@@ -136,7 +149,6 @@ export const changeAvatarQuery = (urlObject) => async (dispatch) => {
   }
 
   dispatch(setRequestFulfilled());
-  console.log(response.data?.avatar);
   dispatch(changeAvatar(response.data?.avatar));
 };
 

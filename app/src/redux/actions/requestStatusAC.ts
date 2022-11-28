@@ -1,3 +1,4 @@
+import { Dispatch } from "redux";
 import { REQUEST_STATUS } from "../types/requestStatusTypes";
 
 
@@ -31,6 +32,6 @@ export const setRequestEmpty = (status = "") : SetRequestStatusActionType=> ({
   payload: status,
 });
 
-export const setStatusEmpty = () => (dispatch) => {
+export const setStatusEmpty = () => (dispatch: Dispatch<SetRequestStatusActionType>) => {
   dispatch(setRequestEmpty());
 };

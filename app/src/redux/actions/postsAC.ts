@@ -16,10 +16,14 @@ import {
 } from "./requestStatusAC.ts";
 // @ts-ignore
 import { deleteUserPost } from "./personAC.ts";
-import { PostsType } from "../initState";
+import { initStateType, PostsType } from "../initState";
 import { AllPostsType, PostsACTypes } from "./types/postsACTypes";
+import { ThunkAction } from 'redux-thunk'
+import { Dispatch } from "redux";
 
+type ThunkType = ThunkAction<Promise<void>, initStateType, unknown, PostsACTypes> 
 
+type DispatchType = Dispatch<PostsACTypes>
 
 export const setAllPosts = (allPosts: AllPostsType) : PostsACTypes   => ({
   type: SET_ALL_POSTS,
@@ -33,7 +37,7 @@ export const changeLike = (post: PostsType) : PostsACTypes => ({
   payload: post,
 });
 
-export const loadAllPosts = (searchValue: string) => async (dispatch: any) => {
+export const loadAllPosts = (searchValue: string) : ThunkType => async (dispatch: DispatchType) => {
   // const urlForFetch = searchValue ? `/search/?query=${searchValue}` : "/";
   // const response = await fetch(
   //   `https://api.react-learning.ru/posts${urlForFetch}`,
@@ -57,7 +61,7 @@ export const loadAllPosts = (searchValue: string) => async (dispatch: any) => {
   }
   dispatch(setRequestFulfilled());
 
-  const postsFromApi = response.data;
+  const postsFromApi: AllPostsType = response.data;
 
   dispatch(setAllPosts(postsFromApi));
 };
@@ -90,7 +94,7 @@ export const addComment = (post: PostsType) : PostsACTypes => ({
   payload: post,
 });
 
-export const queryNewPost = (post) => async (dispatch: any) => {
+export const queryNewPost = (post): ThunkType => async (dispatch: DispatchType) => {
 
   dispatch(setRequestStarted());
 
@@ -105,13 +109,13 @@ export const queryNewPost = (post) => async (dispatch: any) => {
   }
 
   // const postFromApi = await response.json();
-  const postFromApi = response.data;
+  const postFromApi: PostsType = response.data;
 
   dispatch(addNewPost(postFromApi));
   dispatch(setRequestFulfilled());
 };
 
-export const queryAddLike = (postId) => async (dispatch) => {
+export const queryAddLike = (postId: string): ThunkType => async (dispatch: DispatchType) => {
   let response;
   try {
     response = await axiosInstance.put(`posts/likes/${postId}`);
@@ -120,11 +124,11 @@ export const queryAddLike = (postId) => async (dispatch) => {
     return;
   }
 
-  const postFromApi = response.data;
+  const postFromApi: PostsType = response.data;
 
   dispatch(changeLike(postFromApi));
 };
-export const queryDeleteLike = (postId) => async (dispatch) => {
+export const queryDeleteLike = (postId: string) : ThunkType => async (dispatch: DispatchType) => {
   let response;
   try {
     response = await axiosInstance.delete(`posts/likes/${postId}`);
@@ -133,12 +137,12 @@ export const queryDeleteLike = (postId) => async (dispatch) => {
     return;
   }
 
-  const postFromApi = response.data;
+  const postFromApi: PostsType = response.data;
 
   dispatch(changeLike(postFromApi));
 };
 
-export const queryDeletePost = (postId) => async (dispatch) => {
+export const queryDeletePost = (postId: string) : ThunkType => async (dispatch: DispatchType) => {
   dispatch(setRequestStarted("deletePending"));
   let response;
   try {
@@ -153,7 +157,7 @@ export const queryDeletePost = (postId) => async (dispatch) => {
   dispatch(setRequestFulfilled("deleteUserPost-fulfilled"));
 };
 
-export const queryGetSinglePost = (postId) => async (dispatch) => {
+export const queryGetSinglePost = (postId: string) : ThunkType => async (dispatch: DispatchType) => {
   dispatch(setRequestStarted("getSinglePost-pending"));
   let response;
   try {
@@ -163,12 +167,16 @@ export const queryGetSinglePost = (postId) => async (dispatch) => {
     return;
   }
   
-  const postFromApi = [response.data]
+  const postFromApi: AllPostsType = [response.data]
   dispatch(setAllPosts(postFromApi));
   dispatch(setRequestFulfilled("getSinglePost-Fulfilled"));
 };
 
-export const queryAddComment = (id, body) => async (dispatch) => {
+type bodyType  = {
+  [k: string]: string;
+}
+
+export const queryAddComment = (id: string, body: bodyType ) : ThunkType => async (dispatch: DispatchType ) => {
   dispatch(setRequestStarted("addComment-pending"));
   let response;
   try {
@@ -182,7 +190,7 @@ export const queryAddComment = (id, body) => async (dispatch) => {
   dispatch(setRequestFulfilled("addComment-Fulfilled"));
 };
 
-export const queryDeleteComment = (postId, commentId) => async (dispatch) => {
+export const queryDeleteComment = (postId: string, commentId: string) : ThunkType => async (dispatch: DispatchType) => {
   dispatch(setRequestStarted("deleteComment-pending"));
   let response;
   try {
@@ -193,7 +201,7 @@ export const queryDeleteComment = (postId, commentId) => async (dispatch) => {
     dispatch(setRequestFailed(error.message));
   }
 
-  const postFromApi = response.data;
+  const postFromApi: PostsType = response.data;
   dispatch(addComment(postFromApi));
   dispatch(setRequestFulfilled("deleteComment-Fulfilled"));
 };

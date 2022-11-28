@@ -12,10 +12,6 @@ const initState = () => {
       __v: 0,
       token: "",
       posts: [] as Array<PostsType> | [],
-      // name: "",
-      // email: "",
-      // token: "",
-      // posts: [],
     } as PersonType ,
     user: {} as UserType
   };
